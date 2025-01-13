@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Amplify } from "aws-amplify";
+import outputs from "../../amplify_outputs.json";
+import Landing from "./Views/Landing";
+
 import "./globals.css";
+
+Amplify.configure(outputs);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,17 +23,13 @@ export const metadata: Metadata = {
   description: "CJ DAutorio's personal website",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout() {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Landing />
       </body>
     </html>
   );
