@@ -25,10 +25,12 @@
     "aws-cdk": "^2.175.1",
     "aws-cdk-lib": "^2.175.1",
     "constructs": "^10.4.2",
+    "css-loader": "^7.1.2",
     "esbuild": "^0.24.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
     "postcss": "^8",
+    "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
