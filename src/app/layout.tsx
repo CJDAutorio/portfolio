@@ -28,8 +28,6 @@ export default function RootLayout() {
       >
         <Analytics />
         <Landing className={'container mx-auto'} />
-        <GrainyBorder />
-        <Landing className={'container mx-auto'} />
       </body>
     </html>
   );
