@@ -16,7 +16,7 @@ export function ThreeJSScene() {
 		<div className="w-screen h-screen absolute top-0 left-0 z-0 overflow-hidden bg-slate-300">
 			<h1>ThreeJSScene</h1>
 			<Canvas
-				camera={{ fov: 10, near: 0.1, far: 1000, position: [0.5, 1, 18], rotation: [0, 0, 0] }}
+				camera={{ fov: 10, near: 0.1, far: 1000, position: [0, 1, 18], rotation: [0, 0, 0] }}
 			>
 				<ambientLight intensity={0.1} />
 				<Suspense fallback={<Loader />}>
