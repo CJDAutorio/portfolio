@@ -1,10 +1,14 @@
 import React from 'react';
 
-import './styles.css';
+interface LandingProps {
+    className?: string | undefined;
+}
 
-const Landing: React.FC = () => {
+import './style.css';
+
+const Landing: React.FC<LandingProps> = ({ className }) => {
     return (
-        <div>
+        <div className={className}>
             <h1>This is the landing page.</h1>
         </div>
     );
