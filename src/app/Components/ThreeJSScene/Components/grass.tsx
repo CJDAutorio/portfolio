@@ -44,7 +44,7 @@ export function GrassInstances(
 					currentZ + (Math.random() - 0.5) * 0.2
 				);
 				temp.rotation.set(1.5707963, 0, 0);
-				const randomScale = Math.random() + 0.5;
+				const randomScale = Math.random() * 1.2 + 0.5;
 				temp.scale.set(randomScale, randomScale, randomScale);
 				temp.updateMatrix();
 				instancedMeshRef.current.setMatrixAt(currentIndex, temp.matrix);

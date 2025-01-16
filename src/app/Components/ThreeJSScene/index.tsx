@@ -38,6 +38,7 @@ export function ThreeJSScene() {
 					shadow-camera-bottom={-10}
 					color={"#ece3c4"}
 				/>
+				<fog attach="fog" args={['rgb(72, 75, 78)', 5, 100]} />
 				<Suspense fallback={<Loader />}>
 					{/* <Environment preset="sunset" background={false} /> */}
 					<CameraController />
