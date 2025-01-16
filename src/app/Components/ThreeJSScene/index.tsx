@@ -14,7 +14,7 @@ import Loader from "../Loader";
 export function ThreeJSScene() {
 
 	return (
-		<div className="w-screen h-screen absolute top-0 left-0 z-0 overflow-hidden bg-slate-300">
+		<div className="w-screen h-screen absolute top-0 left-0 z-0 overflow-hidden ">
 			<Canvas
 				camera={{
 					fov: 10,
