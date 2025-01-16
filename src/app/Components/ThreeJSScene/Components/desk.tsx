@@ -31,7 +31,7 @@ export function DeskModel(props: JSX.IntrinsicElements["group"]) {
 				>
 					<meshStandardMaterial
 						attach="material"
-						color="rgb(115, 102, 94)"
+						color="rgb(141, 128, 121)"
 					/>
 				</mesh>
 			</group>

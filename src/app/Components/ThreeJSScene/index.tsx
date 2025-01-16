@@ -24,9 +24,22 @@ export function ThreeJSScene() {
 					rotation: [0, 0, 0],
 				}}
 			>
-				<ambientLight intensity={0.1} />
+				<ambientLight intensity={1} color={'#c4ccda'}/>
+				<directionalLight
+					position={[5, 10, 5]}
+					intensity={1}
+					castShadow
+					shadow-mapSize-width={1024}
+					shadow-mapSize-height={1024}
+					shadow-camera-far={50}
+					shadow-camera-left={-10}
+					shadow-camera-right={10}
+					shadow-camera-top={10}
+					shadow-camera-bottom={-10}
+					color={"#ece3c4"}
+				/>
 				<Suspense fallback={<Loader />}>
-					<Environment preset="sunset" background={false} />
+					{/* <Environment preset="sunset" background={false} /> */}
 					<CameraController />
 					<ComputerModel />
 					<DeskModel />
