@@ -8,7 +8,7 @@ import './style.css';
 
 const Landing: React.FC<LandingProps> = ({ className }) => {
     return (
-        <div className={className}>
+        <div className={`${className} text-black`}>
             <h1>This is the landing page.</h1>
         </div>
     );
