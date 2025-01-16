@@ -27,9 +27,11 @@ export default function RootLayout() {
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-50`}
 			>
 				<Analytics />
-				<ThreeJSScene />
-				<div className="z-10">
+				<div className="z-20">
 					<Landing className={"container mx-auto"} />
+				</div>
+				<div className="z-10">
+					<ThreeJSScene />
 				</div>
 			</body>
 		</html>
