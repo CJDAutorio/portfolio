@@ -27,8 +27,8 @@ export default function RootLayout() {
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-300`}
 			>
 				<Analytics />
-				<div className="relative">
-					<div className="z-10 absolute top-0 left-0">
+				<div className="relative mx-auto">
+					<div className="z-10 absolute top-0 left-0  w-1/3 bg-slate-200/50 backdrop-blur-sm">
 						<Landing className={"container mx-auto"} />
 					</div>
 				</div>
