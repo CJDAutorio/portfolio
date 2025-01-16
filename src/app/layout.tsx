@@ -24,13 +24,15 @@ export default function RootLayout() {
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-50`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-300`}
 			>
 				<Analytics />
-				<div className="z-20">
-					<Landing className={"container mx-auto"} />
+				<div className="relative">
+					<div className="z-10 absolute top-0 left-0">
+						<Landing className={"container mx-auto"} />
+					</div>
 				</div>
-				<div className="z-10">
+				<div className="z-0 pointer-events-none relative overflow-hidden h-screen w-screen m-0 p-0">
 					<ThreeJSScene />
 				</div>
 			</body>
