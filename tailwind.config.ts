@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 import type { Config } from "tailwindcss";
 
 export default {
@@ -14,5 +15,6 @@ export default {
       },
     },
   },
+  important: true,
   plugins: [],
 } satisfies Config;
