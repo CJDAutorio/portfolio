@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 export function GroundModel(props: { size?: number }) {
     const size = props.size || 100;

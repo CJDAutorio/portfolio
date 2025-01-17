@@ -1,9 +1,7 @@
 import * as THREE from "three";
 import React, { useEffect, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import { BufferAttribute, ShaderMaterial } from "three";
-import { GLTF } from "three-stdlib";
-import { extend, useFrame } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 
 export function BoxInstances(
 	props: JSX.IntrinsicElements["group"] & {
