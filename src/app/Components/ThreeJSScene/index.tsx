@@ -1,15 +1,13 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { Camera, Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import "./style.css";
 import { ComputerModel } from "./Components/computer";
 import { DeskModel } from "./Components/desk";
 import { GrassInstances } from "./Components/grass";
 import { GroundModel } from "./Components/ground";
 import { BoxInstances } from "./Components/cubes";
-import Loader from "../Loader";
-import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
 
 export function ThreeJSScene() {
 	return (
