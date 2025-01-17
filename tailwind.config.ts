@@ -14,6 +14,13 @@ export default {
         foreground: "var(--foreground)",
       },
     },
+    fontFamily: {
+      'sans': ['"Gantari"', 'ui-sans-serif', 'system-ui'],
+      'serif': ['"Suranna"', 'ui-serif', 'Georgia'],
+      'mono': ['ui-monospace', 'SFMono-Regular'],
+      'display': ['"Gantari"'],
+      'body': ['"Suranna"'],
+    }
   },
   important: true,
   plugins: [],
