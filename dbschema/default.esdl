@@ -21,8 +21,8 @@ module default {
     type EducationEntry {
         required school: str;
         required degree: str;
-        required startDate: date;
-        endDate: date;
+        required startDate: str;
+        endDate: str;
         required description: str;
     }
     type Skill {
