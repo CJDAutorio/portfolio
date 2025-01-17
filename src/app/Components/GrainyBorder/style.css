@@ -1,0 +1,19 @@
+.grainy-border-outer {
+  mask-image: url("../../Assets/Images/noise-border.png");
+  mask-position: center;
+  mask-size: contain;
+  overflow: visible;
+  image-rendering: pixelated;
+  display: hidden;
+  filter: drop-shadow(2px 2px 0 rgb(255, 255, 255));
+}
+
+grainy-border-inner {
+    mask-image: url("../../Assets/Images/noise-border.png");
+    mask-position: center;
+    mask-size: contain;
+    overflow: visible;
+    image-rendering: pixelated;
+    display: hidden;
+    filter: drop-shadow(2px 2px 0 rgb(255, 255, 255));
+}
