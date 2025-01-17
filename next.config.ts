@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
