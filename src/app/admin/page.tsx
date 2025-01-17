@@ -5,8 +5,6 @@ export default function Admin() {
 		<div className="container mx-auto">
 			<h1>Admin Page</h1>
 			<div>
-				<form>
-				</form>
 			</div>
 		</div>
 	);
