@@ -17,7 +17,7 @@ const Nav: React.FC<NavComponentProps> = ({
 	buttons,
 	onViewChange,
 }) => {
-	const [buttonHovered, setButtonHovered] = React.useState("");
+	const [, setButtonHovered] = React.useState("");
 	const [buttonActivated, setButtonActivated] = React.useState(-1);
 
 	const buttonClasses =
