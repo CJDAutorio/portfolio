@@ -8,11 +8,10 @@ import { DeskModel } from "./Components/desk";
 import { GrassInstances } from "./Components/grass";
 import { GroundModel } from "./Components/ground";
 import { BoxInstances } from "./Components/cubes";
-import { Environment } from "@react-three/drei";
 import Loader from "../Loader";
+import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
 
 export function ThreeJSScene() {
-
 	return (
 		<div className="w-screen h-screen absolute top-0 left-0 z-0 overflow-hidden ">
 			<Canvas
@@ -24,7 +23,7 @@ export function ThreeJSScene() {
 					rotation: [0, 0, 0],
 				}}
 			>
-				<ambientLight intensity={1} color={'#c4ccda'}/>
+				<ambientLight intensity={1} color={"#c4ccda"} />
 				<directionalLight
 					position={[5, 10, 5]}
 					intensity={1}
@@ -38,10 +37,9 @@ export function ThreeJSScene() {
 					shadow-camera-bottom={-10}
 					color={"#ece3c4"}
 				/>
-				<fog attach="fog" args={['rgb(72, 75, 78)', 5, 100]} />
-				<Suspense fallback={<Loader />}>
-					{/* <Environment preset="sunset" background={false} /> */}
-					<CameraController />
+				<fog attach="fog" args={["rgb(72, 75, 78)", 5, 100]} />
+				<CameraController />
+				<Suspense>
 					<ComputerModel />
 					<DeskModel />
 					<GrassInstances />
