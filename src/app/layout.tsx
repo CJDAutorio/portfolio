@@ -30,7 +30,7 @@ export default function RootLayout() {
 				<div className="z-10 absolute top-12 right-40">
 					<h1 className="font-serif font-bold text-left text-6xl tracking-wider">CJ D&apos;Autorio</h1>
 				</div>
-				<div className="absolute w-screen h-screen flex justify-center items-end">
+				<div className="absolute w-screen h-screen flex justify-start items-end">
 					<div
 						className="
 							z-20
@@ -38,8 +38,10 @@ export default function RootLayout() {
 							container
 							w-full
 							md:w-2/3
-							py-12
-							backdrop-blur-xs
+							py-6
+							mx-8
+							my-12
+							backdrop-blur-sm
 							drop-shadow-md
 							bg-slate-200/30
 							flex

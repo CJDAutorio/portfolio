@@ -15,36 +15,39 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	const buttons: Button[] = [
 		{
 			name: "About Me",
-            component: <AboutMe />,
+			component: <AboutMe />,
 		},
 		{
 			name: "Experience",
-            component: <AboutMe />,
+			component: <AboutMe />,
 		},
 		{
 			name: "Hobbies",
-            component: <AboutMe />,
+			component: <AboutMe />,
 		},
 		{
 			name: "Contact Me",
-            component: <AboutMe />,
+			component: <AboutMe />,
 		},
 	];
 
 	const handleViewChange = (viewIndex: number) => {
-        if (viewIndex === -1) {
-            setView(null);
-            console.log('removed view');
-            return;
-        }
+		if (viewIndex === -1) {
+			setView(null);
+			console.log("removed view");
+			return;
+		}
 
-        setView(buttons[viewIndex].component);
-        console.log('set view to', buttons[viewIndex].name);
-    };
+		setView(buttons[viewIndex].component);
+		console.log("set view to", buttons[viewIndex].name);
+	};
 
 	return (
-		<div className={`${className} relative w-full h-full`}>
-            <div className={`${view ? 'mb-12 h-0' : 'mb-0 h-full'}`}>{view}</div>
+		<div className={`${className ? className : ''} relative w-full h-full`}>
+			<div className={`${view ? "opacity-100" : "opacity-0"} transition-all`}>
+				{view}
+				<hr className=""/>
+			</div>
 			<Nav onViewChange={handleViewChange} buttons={buttons} />
 		</div>
 	);

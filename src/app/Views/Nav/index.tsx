@@ -4,6 +4,7 @@ import React from "react";
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
 import { Button } from "../../Utils/types";
 import "./style.css";
+import { motion } from "motion/react";
 
 interface NavComponentProps {
 	className?: string | undefined;
@@ -11,12 +12,16 @@ interface NavComponentProps {
 	onViewChange: (viewIndex: number) => void;
 }
 
-const Nav: React.FC<NavComponentProps> = ({ className, buttons, onViewChange }) => {
+const Nav: React.FC<NavComponentProps> = ({
+	className,
+	buttons,
+	onViewChange,
+}) => {
 	const [buttonHovered, setButtonHovered] = React.useState("");
-    const [buttonActivated, setButtonActivated] = React.useState(-1);
+	const [buttonActivated, setButtonActivated] = React.useState(-1);
 
 	const buttonClasses =
-		"transition-all px-12 py-1 hover:bg-slate-200/50 hover:px-8 text-lg flex items-center justify-around w-full";
+		"transition-all w-full px-12 py-1 hover:bg-slate-200/50 hover:drop-shadow-md hover:px-8 text-lg grid grid-cols-2 grid-rows-1 items-center";
 
 	const handleMouseIn = (e: React.MouseEvent<HTMLButtonElement>) => {
 		setButtonHovered(e.currentTarget.textContent || "");
@@ -26,41 +31,51 @@ const Nav: React.FC<NavComponentProps> = ({ className, buttons, onViewChange }) 
 		setButtonHovered("");
 	};
 
-    const handleMouseClick = (index: number) => {
-        if (buttonActivated === index) {
-            setButtonActivated(-1);
-            onViewChange(-1);
-        } else {
-            setButtonActivated(index);
-            onViewChange(index);
-        }
+	const handleMouseClick = (index: number) => {
+		if (buttonActivated === index) {
+			setButtonActivated(-1);
+			onViewChange(-1);
+		} else {
+			setButtonActivated(index);
+			onViewChange(index);
+		}
 
-        console.log('clicked', index);
-    }
+		console.log("clicked", index);
+	};
 
 	return (
-		<div
-			className={`${className} relative w-full h-full grid grid-rows-1 grid-cols-${buttons.length} gap-4`}
+		<motion.div
+			className={`${
+				className ? className : ""
+			} relative w-full h-full gap-4`}
+			animate={{
+				x: 0,
+				opacity: 1,
+				transition: {
+					default: { type: "spring" },
+					opacity: { ease: "linear" },
+				},
+			}}
 		>
 			{buttons.map((button, index) => {
 				return (
 					<button
 						key={index}
-						className={buttonClasses}
+						className={buttonClasses ? buttonClasses : ""}
 						onMouseEnter={handleMouseIn}
 						onMouseLeave={handleMouseOut}
-                        onClick={() => handleMouseClick(index)}
+						onClick={() => handleMouseClick(index)}
 					>
-						{button.name}
+						<p className="justify-self-start">{button.name}</p>
 						{buttonActivated === index ? (
-							<HiOutlineChevronUp />
+                            <div className="justify-self-end"><HiOutlineChevronUp /></div>
 						) : (
-							<HiOutlineChevronDown />
+							<div className="justify-self-end"><HiOutlineChevronDown /></div>
 						)}
 					</button>
 				);
 			})}
-		</div>
+		</motion.div>
 	);
 };
 
