@@ -12,6 +12,7 @@ type GLTFResult = GLTF & {
 	};
 };
 
+// eslint-disable-next-line
 export function ComputerModel(props: JSX.IntrinsicElements["group"]) {
 	const { nodes, materials } = useGLTF(
 		"Assets/Models/computer.glb"
