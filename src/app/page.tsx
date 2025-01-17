@@ -1,6 +1,6 @@
 import React from "react";
 import { ThreeJSScene } from "./Components/ThreeJSScene";
-import Base from "./pages/Base";
+import Base from "./Views/Base";
 
 export default function Home() {
 	return (
