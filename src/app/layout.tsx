@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Landing from "./Views/Landing";
+import Nav from "./Views/Nav";
 import { ThreeJSScene } from "./Components/ThreeJSScene";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
@@ -27,12 +27,28 @@ export default function RootLayout() {
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-300`}
 			>
 				<Analytics />
-				<div className="relative mx-auto">
-					<div className="z-10 absolute top-0 left-0  w-1/3 bg-slate-200/50 backdrop-blur-sm">
-						<Landing className={"container mx-auto"} />
+				<div className="z-10 absolute top-12 right-24">
+					<h1 className="font-serif font-bold text-left text-6xl tracking-wider">CJ D&apos;Autorio</h1>
+				</div>
+				<div className="absolute w-screen h-screen flex justify-start items-end">
+					<div
+						className="
+							z-20
+							relative
+							container
+							w-2/3
+							py-12
+							justify-start
+							backdrop-blur-sm
+							bg-slate-200/50
+							flex
+							flex-col
+						"
+					>
+						<Nav />
 					</div>
 				</div>
-				<div className="z-0 pointer-events-none relative overflow-hidden h-screen w-screen m-0 p-0">
+				<div className="z-0 pointer-events-none absolute overflow-hidden h-screen w-screen m-0 p-0">
 					<ThreeJSScene />
 				</div>
 			</body>
