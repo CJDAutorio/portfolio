@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.731.0",
+    "@aws-sdk/lib-dynamodb": "^3.731.0",
+    "@aws-sdk/util-dynamodb": "^3.731.0",
     "@react-three/drei": "^9.121.1",
     "@react-three/fiber": "^9.0.0-rc.4",
     "@react-three/postprocessing": "^2.16.7",
