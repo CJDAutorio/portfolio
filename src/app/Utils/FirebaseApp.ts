@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import type { FirebaseOptions } from "firebase/app";
 
 const firebaseConfig: FirebaseOptions = {
@@ -11,6 +11,8 @@ const firebaseConfig: FirebaseOptions = {
 	measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+console.log('firebaseConfig', firebaseConfig);
+
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export default app;
