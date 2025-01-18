@@ -1,12 +1,10 @@
 "use client";
 
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { useAnimate } from "framer-motion";
 import { useEffect } from "react";
 
 interface AboutMeComponentProps {
 	className?: string | undefined;
-	dbClient: DynamoDBClient;
 }
 
 const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
