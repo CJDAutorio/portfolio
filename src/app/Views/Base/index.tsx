@@ -4,6 +4,8 @@ import React from "react";
 import Nav from "../Nav";
 import AboutMe from "../AboutMe";
 import { Button } from "../../Utils/types";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 
 interface BaseComponentProps {
 	className?: string | undefined;
@@ -11,6 +13,8 @@ interface BaseComponentProps {
 
 const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	const [view, setView] = React.useState<React.ReactNode>(null);
+
+	const dbClient = new DynamoDBClient({ region: "us-east-2" });
 
 	const buttons: Button[] = [
 		{
@@ -43,10 +47,14 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	};
 
 	return (
-		<div className={`${className ? className : ''} relative w-full h-full`}>
-			<div className={`${view ? "opacity-100" : "opacity-0"} transition-all`}>
+		<div className={`${className ? className : ""} relative w-full h-full`}>
+			<div
+				className={`${
+					view ? "opacity-100" : "opacity-0"
+				} transition-all`}
+			>
 				{view}
-				<hr className=""/>
+				<hr className="" />
 			</div>
 			<Nav onViewChange={handleViewChange} buttons={buttons} />
 		</div>
