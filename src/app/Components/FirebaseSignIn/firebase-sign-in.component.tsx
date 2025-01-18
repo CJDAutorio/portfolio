@@ -10,7 +10,7 @@ interface FirebaseSignInProps {
 
 export function FirebaseSignIn({ setIsSignedIn }: FirebaseSignInProps) {
 	useEffect(() => {
-		const ui = new firebaseui.auth.AuthUI(FirebaseAuth);
+		const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(FirebaseAuth);
 
 		const uiConfig = {
 			signInOptions: [
