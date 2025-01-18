@@ -4,8 +4,7 @@ import React from "react";
 import Nav from "../Nav";
 import AboutMe from "../AboutMe";
 import { Button } from "../../Utils/types";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import firebase from "firebase/compat/app";
 
 interface BaseComponentProps {
 	className?: string | undefined;
@@ -23,9 +22,8 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 		appId: process.env.FIREBASE_APP_ID,
 		measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 	};
-	
-	const app = initializeApp(firebaseConfig);
-	const analytics = getAnalytics(app);
+
+	firebase.initializeApp(firebaseConfig);
 
 	const buttons: Button[] = [
 		{
