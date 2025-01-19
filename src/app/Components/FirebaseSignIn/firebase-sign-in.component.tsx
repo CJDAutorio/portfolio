@@ -10,31 +10,35 @@ interface FirebaseSignInProps {
 
 export function FirebaseSignIn({ setIsSignedIn }: FirebaseSignInProps) {
 	useEffect(() => {
+
 		const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(FirebaseAuth);
 
-		const uiConfig = {
+		const uiConfig: firebaseui.auth.Config = {
 			signInOptions: [
 				{
 					provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
 					requireDisplayName: false,
+					disableSignUp: {
+                        status: true
+                    }
 				},
 			],
-			disableSignUp: {
-				status: true,
-				errorMessage: "Bad dog.",
-			},
 			signInFlow: "popup",
 			callbacks: {
-				signInSuccessWithAuthResult: function () {
+				signInSuccessWithAuthResult: function (authResult: unknown, _redirectUrl?: string) {
+					const currentUser = FirebaseAuth.currentUser;
+					console.log('currentUser', currentUser);
 					setIsSignedIn(true);
+					console.log("Sign in success", authResult);
 					return false;
+				},
+				signInFailure: function (error) {
+					console.error("Sign in failed", error);
 				},
 			},
 		};
 
-		if (ui.isPendingRedirect()) {
-			ui.start("#firebaseui-auth-container", uiConfig);
-		}
+		ui.start("#firebaseui-auth-container", uiConfig);
 	}, []);
 	return (
 		<NoSSRComponent>
