@@ -3,8 +3,11 @@
 import React from "react";
 import { AboutMeForm } from "../Views/Admin/AboutMeForm/about-me-form.component";
 import "firebaseui/dist/firebaseui.css";
+import FirestoreDB from "@/app/Utils/FirestoreDB";
 
 import dynamic from "next/dynamic";
+import FirebaseAuth from "../Utils/FirebaseAuth";
+import FirebaseStorage from "../Utils/FirebaseStorage";
 
 export default function Admin() {
 	const [view, setView] = React.useState<React.ReactNode>(null);
@@ -19,7 +22,10 @@ export default function Admin() {
 	}
 
 	const FirebaseSignIn = dynamic(
-		() => import("../Components/FirebaseSignIn/firebase-sign-in.component").then(mod => mod.FirebaseSignIn),
+		() =>
+			import(
+				"../Components/FirebaseSignIn/firebase-sign-in.component"
+			).then((mod) => mod.FirebaseSignIn),
 		{
 			loading: () => <p>Loading...</p>,
 			ssr: false,
@@ -28,7 +34,24 @@ export default function Admin() {
 
 	return (
 		<div className="container mx-auto mt-12 w-full">
-			<h1 className="text-4xl mb-16">Admin Page</h1>
+			<div className="mb-16">
+				<h1 className="text-4xl">Admin Page</h1>
+				{isSignedIn && (
+					<div className="flex flex-row justify-start gap-5 items-center">
+						<p>Logged in as {FirebaseAuth.currentUser?.email}</p>
+						<button
+							className="bg-slate-200 px-3 py-1 rounded"
+							onClick={() => {
+								FirebaseAuth.signOut();
+								setIsSignedIn(false);
+							}}
+						>
+							Sign Out
+						</button>
+					</div>
+				)}
+			</div>
+
 			{!isSignedIn ? (
 				<div className="w-full">
 					<FirebaseSignIn setIsSignedIn={setIsSignedIn} />
@@ -38,7 +61,11 @@ export default function Admin() {
 					<div className="flex flex-row w-full justify-around gap-x-2">
 						<button
 							className={buttonClasses}
-							onClick={() => handleViewChange(<AboutMeForm />)}
+							onClick={() =>
+								handleViewChange(
+									<AboutMeForm firestoreDb={FirestoreDB} firebaseStorage={FirebaseStorage} />
+								)
+							}
 						>
 							About Me Content
 						</button>
