@@ -30,8 +30,7 @@ export default function Admin() {
 		<div className="container mx-auto mt-12 w-full">
 			<h1 className="text-4xl mb-16">Admin Page</h1>
 			{!isSignedIn ? (
-				<div>
-					<p>Please sign in:</p>
+				<div className="w-full">
 					<FirebaseSignIn setIsSignedIn={setIsSignedIn} />
 				</div>
 			) : (
