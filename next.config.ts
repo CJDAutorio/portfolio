@@ -6,10 +6,6 @@ const nextConfig: NextConfig = {
       ignoreDuringBuilds: true,
   },
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
     ignoreBuildErrors: true,
   },
   reactStrictMode: true,
@@ -26,10 +22,8 @@ const nextConfig: NextConfig = {
         hostname: "firebasestorage.googleapis.com",
         port: "",
         pathname: "/v0/b/**",
-        search: '',
       }
     ],
-    domains: ["assets.vercel.com", "firebasestorage.googleapis.com"],
   }
 };
 
