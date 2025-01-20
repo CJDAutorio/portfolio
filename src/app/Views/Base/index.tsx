@@ -43,10 +43,14 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	};
 
 	return (
-		<div className={`${className ? className : ''} relative w-full h-full`}>
-			<div className={`${view ? "opacity-100" : "opacity-0"} transition-all`}>
+		<div className={`${className ? className : ""} relative w-full h-full`}>
+			<div
+				className={`${
+					view ? "opacity-100" : "opacity-0"
+				} transition-all`}
+			>
 				{view}
-				<hr className=""/>
+				<hr className="" />
 			</div>
 			<Nav onViewChange={handleViewChange} buttons={buttons} />
 		</div>

@@ -3,6 +3,7 @@ import { ThreeJSScene } from "./Components/ThreeJSScene";
 import Base from "./Views/Base";
 
 export default function Home() {
+
 	return (
 		<div>
 			<div className="z-10 absolute top-12 right-40">
