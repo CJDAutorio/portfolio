@@ -13,6 +13,24 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.vercel.com",
+        port: "",
+        pathname: "/image/upload/**",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        port: "",
+        pathname: "/v0/b/**",
+        search: '',
+      }
+    ],
+    domains: ["assets.vercel.com", "firebasestorage.googleapis.com"],
+  }
 };
 
 export default nextConfig;
