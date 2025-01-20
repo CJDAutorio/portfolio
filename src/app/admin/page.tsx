@@ -1,13 +1,10 @@
 "use client";
 
 import React from "react";
-import { AboutMeForm } from "../Views/Admin/AboutMeForm/about-me-form.component";
+import { AboutMeForm } from '../Views/Admin/AboutMeForm/about-me-form.component';
 import "firebaseui/dist/firebaseui.css";
-import FirestoreDB from "@/app/Utils/FirestoreDB";
-
 import dynamic from "next/dynamic";
 import FirebaseAuth from "../Utils/FirebaseAuth";
-import FirebaseStorage from "../Utils/FirebaseStorage";
 
 export default function Admin() {
 	const [view, setView] = React.useState<React.ReactNode>(null);
@@ -63,7 +60,7 @@ export default function Admin() {
 							className={buttonClasses}
 							onClick={() =>
 								handleViewChange(
-									<AboutMeForm firestoreDb={FirestoreDB} firebaseStorage={FirebaseStorage} />
+									<AboutMeForm />
 								)
 							}
 						>
