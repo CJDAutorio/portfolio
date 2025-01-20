@@ -45,7 +45,7 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 					<h1 className="font-serif self-start text-4xl font-medium my-2">
 						About Me
 					</h1>
-					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2">
+					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						{aboutMeContent.map((content) => (
 							<div key={content.id}>
 								<h2 className="font-serif self-start text-2xl font-medium my-2">
