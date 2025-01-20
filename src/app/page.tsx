@@ -1,15 +1,27 @@
 import React from "react";
 import { ThreeJSScene } from "./Components/ThreeJSScene";
 import Base from "./Views/Base";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
 
 	return (
 		<div>
-			<div className="z-10 absolute top-12 right-40">
-				<h1 className="font-serif font-medium text-left text-6xl tracking-wider">
+			<div className="z-10 absolute top-12 right-40 flex flex-col justify-end items-end gap-y-4">
+				<h1 className="font-serif font-semibold text-right text-6xl tracking-wider leading-none">
 					CJ D&apos;Autorio
 				</h1>
+				<h2 className="font-serif font-normal text-right text-4xl tracking-wide leading-none">
+					Developer
+				</h2>
+				<div className="flex justify-end items-end gap-4">
+					<a href="https://github.com/CJDAutorio">
+						<FaGithub fontSize={32} />
+					</a>
+					<a href="https://www.linkedin.com/in/cj-dautorio/">
+						<FaLinkedin fontSize={32} />
+					</a>
+				</div>
 			</div>
 			<div className="absolute w-screen h-screen flex justify-start items-end">
 				<div
