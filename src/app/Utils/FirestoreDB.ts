@@ -62,15 +62,19 @@ export async function getAllAboutMeDocs() {
     const querySnapshot = await getDocs(collection(FirestoreDB, "aboutme-content"));
     const content: aboutMeContent[] = [];
 
-    querySnapshot.forEach(async (doc) => {
+    const promises = querySnapshot.docs.map(async (doc) => {
         const aboutMeContent = doc.data() as aboutMeContent;
         console.log(`${doc.id}`, doc.data());
         aboutMeContent.id = doc.id;
-        const url = await firebaseStorageGetDownloadURL(aboutMeContent.media as string);
-        console.log('url:', url);
-        aboutMeContent.media = url;
-        content.push(aboutMeContent as aboutMeContent);
+        if (aboutMeContent.media) {
+            const url = await firebaseStorageGetDownloadURL(aboutMeContent.media as string);
+            console.log('url:', url);
+            aboutMeContent.media = url;
+        }
+        content.push(aboutMeContent);
     });
+
+    await Promise.all(promises);
 
     return content;
 }
