@@ -15,10 +15,10 @@ export default {
       },
     },
     fontFamily: {
-      'sans': ['"Gantari"', 'ui-sans-serif', 'system-ui'],
-      'serif': ['"Suranna"', 'ui-serif', 'Georgia'],
+      'sans': ['"Geist"', 'ui-sans-serif', 'system-ui'],
+      'serif': ['"Source Serif 4"', 'ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
-      'display': ['"Gantari"'],
+      'display': ['"Source Serif 4"'],
       'body': ['"Suranna"'],
     }
   },
