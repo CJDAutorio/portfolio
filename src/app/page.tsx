@@ -7,7 +7,7 @@ export default function Home() {
 	return (
 		<div>
 			<div className="z-10 absolute top-12 right-40">
-				<h1 className="font-serif font-bold text-left text-6xl tracking-wider">
+				<h1 className="font-serif font-medium text-left text-6xl tracking-wider">
 					CJ D&apos;Autorio
 				</h1>
 			</div>
