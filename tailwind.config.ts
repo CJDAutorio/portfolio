@@ -15,7 +15,7 @@ export default {
       },
     },
     fontFamily: {
-      'sans': ['"Gantari"', 'ui-sans-serif', 'system-ui'],
+      'sans': ['"Geist"', 'ui-sans-serif', 'system-ui'],
       'serif': ['"Source Serif 4"', 'ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
       'display': ['"Source Serif 4"'],
