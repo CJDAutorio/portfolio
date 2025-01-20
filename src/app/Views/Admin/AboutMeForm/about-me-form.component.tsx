@@ -30,13 +30,10 @@ export function AboutMeForm() {
 	async function getAllAboutMeContent() {
 		setIsLoaded(false);
 		setAboutMeContent([]);
-		await getAllAboutMeDocs().then((content) => {
-			const aboutMeContent = content as aboutMeContent[];
-			console.log("content:", content);
-			setAboutMeContent(content);
-			console.log("about me content:", aboutMeContent);
-			setIsLoaded(true);
-		});
+		const content = await getAllAboutMeDocs();
+		setAboutMeContent(content);
+		console.log("about me content:", content);
+		setIsLoaded(true);
 	}
 
 	async function uploadAboutMeContent(content: aboutMeContent) {
@@ -209,15 +206,20 @@ export function AboutMeForm() {
 													{content.content}
 												</p>
 												<div className="col-span-4 self-end">
-													<Image
-														src={
-															content.media as string
-														}
-														alt={content.title}
-														width={96}
-														height={96}
-													/>
-													<p>{content.media as string}</p>
+													{content.media && typeof content.media === "string" && content.media.startsWith("http") ? (
+														<Image
+															src={content.media}
+															alt={content.title}
+															width={96}
+															height={96}
+															onError={(e) => {
+																console.log("error:", e);
+																e.currentTarget.src = 'Assets/Images/noise.png';
+															}}
+														/>
+													) : (
+														<p>No media available</p>
+													)}
 												</div>
 											</div>
 											<button
