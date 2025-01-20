@@ -1,22 +1,30 @@
 import {
+    addDoc,
+    collection,
 	deleteDoc,
 	doc,
 	Firestore,
+	getDoc,
+	getDocs,
 	getFirestore,
-	setDoc,
 } from "firebase/firestore";
 import FirebaseApp from "./FirebaseApp";
-import { aboutMeContent } from "./types";
+import { aboutMeContent } from './types';
+import { firebaseStorageGetDownloadURL, firebaseStorageUploadBytes } from "./FirebaseStorage";
 
 const FirestoreDB = getFirestore(FirebaseApp);
 
-export async function setAboutMeDoc(
-	firestoreDb: Firestore,
+export async function uploadAboutMeDoc(
 	content: aboutMeContent
 ) {
-	const docRef = doc(firestoreDb, "aboutme-content");
+    console.log('uploading', content);
+	const docRef = collection(FirestoreDB, "aboutme-content");
 
-	await setDoc(docRef, content)
+    const filePath = await firebaseStorageUploadBytes(content.media ? content.media as Blob : new Blob());
+
+    content.media = filePath;
+
+	await addDoc(docRef, content)
 		.then(() => {
 			console.log("Document written with ID: ", docRef.id);
 		})
@@ -35,6 +43,36 @@ export async function deleteDocument(firestoreDb: Firestore, docPath: string) {
 		.catch((error) => {
 			console.error("Error deleting document: ", error);
 		});
+}
+
+export async function getAboutMeDoc(docId?: string) {
+    const docRef = doc(FirestoreDB, `aboutme-content${docId ? `/${docId}` : ""}`);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        return docSnap.data();
+    } else {
+        console.log("No such document!");
+        return null;
+    }
+}
+
+export async function getAllAboutMeDocs() {
+    const querySnapshot = await getDocs(collection(FirestoreDB, "aboutme-content"));
+    const content: aboutMeContent[] = [];
+
+    querySnapshot.forEach(async (doc) => {
+        const aboutMeContent = doc.data() as aboutMeContent;
+        console.log(`${doc.id}`, doc.data());
+        aboutMeContent.id = doc.id;
+        const url = await firebaseStorageGetDownloadURL(aboutMeContent.media as string);
+        console.log('url:', url);
+        aboutMeContent.media = url;
+        content.push(aboutMeContent as aboutMeContent);
+    });
+
+    return content;
 }
 
 export default FirestoreDB;
