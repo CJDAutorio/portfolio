@@ -201,24 +201,52 @@ export function AboutMeForm() {
 												{content.title}
 											</h3>
 											<p>{content.id}</p>
-											<div className="grid grid-cols-12 w-full gap-4">
-												<p className="col-span-8 self-start">
-													{content.content}
-												</p>
-												<div className="col-span-4 self-end">
-													{content.media && typeof content.media === "string" && content.media.startsWith("http") ? (
+											<div className="grid grid-cols-12 w-full gap-4 justify-center">
+												<div className="col-span-8 self-start">
+													<Editor
+														height="400px"
+														language="html"
+														theme="vs-dark"
+														options={{
+															fontSize: 16,
+															formatOnType: true,
+															autoClosingBrackets:
+																"always",
+															autoClosingQuotes:
+																"always",
+															autoIndent: "full",
+															automaticLayout:
+																true,
+															readOnly: true,
+														}}
+														value={content.content}
+													/>
+												</div>
+												<div className="col-span-4 self-center justify-self-end">
+													{content.media &&
+													typeof content.media ===
+														"string" &&
+													content.media.startsWith(
+														"http"
+													) ? (
 														<Image
 															src={content.media}
 															alt={content.title}
-															width={96}
-															height={96}
+															width={256}
+															height={256}
 															onError={(e) => {
-																console.log("error:", e);
-																e.currentTarget.src = 'Assets/Images/noise.png';
+																console.log(
+																	"error:",
+																	e
+																);
+																e.currentTarget.src =
+																	"Assets/Images/noise.png";
 															}}
 														/>
 													) : (
-														<p>No media available</p>
+														<p>
+															No media available
+														</p>
 													)}
 												</div>
 											</div>
