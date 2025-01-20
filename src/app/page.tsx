@@ -37,7 +37,7 @@ export default function Home() {
 							backdrop-blur-lg
 							md:backdrop-blur-md
 							drop-shadow-md
-							bg-slate-200/30
+							bg-slate-100/40
 							flex
 							justify-start
 							items-end
