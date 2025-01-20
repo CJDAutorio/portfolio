@@ -48,25 +48,27 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2">
 						{aboutMeContent.map((content) => (
 							<div key={content.id}>
-								<h2 className="font-serif self-start text-2xl font-medium">
+								<h2 className="font-serif self-start text-2xl font-medium my-2">
 									{content.title}
 								</h2>
 								<div className="flex flex-col gap-4 justify-center items-center md:grid md:grid-cols-12 md:items-center md:gap-x-2 md:gap-y-8">
 									<div className="font-sans text-lg self-start justify-self-start md:col-span-9">
 										{parse(content.content)}
 									</div>
-									<Image
-										src={
-											typeof content.media === "string"
-												? content.media
-												: "/Assets/Images/noise.png"
-										}
-										alt="alt"
-										width={256}
-										height={256}
-										layout="relative"
-										className="justify-self-end md:col-span-3 h-full w-auto"
-									/>
+									{content.media !== '' && (
+										<Image
+											src={
+												typeof content.media === "string"
+													? content.media
+													: "/Assets/Images/noise.png"
+											}
+											alt="alt"
+											width={256}
+											height={256}
+											layout="relative"
+											className="justify-self-end md:col-span-3 h-full w-auto"
+										/>
+									)}
 								</div>
 							</div>
 						))}
@@ -76,7 +78,7 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 								check out my resume{" "}
 								<a
 									href="/resume"
-									className=" bg-blue-200 px-2 hover:bg-blue-300 transition-colors"
+									className=" bg-blue-200 px-2 hover:bg-blue-300 rounded transition-colors"
 								>
 									here!
 								</a>
@@ -90,8 +92,9 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 					</div>
 				</div>
 			) : (
-				<div className="w-full h-full flex justify-center items-center">
-					<div className="w-12 h-12 border-blue-500 animate-spin"></div>
+				<div className="w-full h-full flex flex-col justify-center items-center gap-y-4">
+					<h2>Loading</h2>
+					<div className="w-12 h-12 rounded-xl bg-stone-400 animate-spin"></div>
 				</div>
 			)}
 		</div>
