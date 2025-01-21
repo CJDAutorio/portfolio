@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { AboutMeForm } from '../Views/Admin/AboutMeForm/about-me-form.component';
+import { AboutMeForm } from "../Views/Admin/AboutMeForm/about-me-form.component";
 import "firebaseui/dist/firebaseui.css";
 import dynamic from "next/dynamic";
 import FirebaseAuth from "../Utils/FirebaseAuth";
+import { ExperienceForm } from "../Views/Admin/ExperienceForm/experience-form.component";
 
 export default function Admin() {
 	const [view, setView] = React.useState<React.ReactNode>(null);
@@ -30,7 +31,7 @@ export default function Admin() {
 	);
 
 	return (
-		<div className="container mx-auto mt-12 w-full">
+		<div className="container mx-auto mt-12 w-full font-sans">
 			<div className="mb-16">
 				<h1 className="text-4xl">Admin Page</h1>
 				{isSignedIn && (
@@ -58,15 +59,14 @@ export default function Admin() {
 					<div className="flex flex-row w-full justify-around gap-x-2">
 						<button
 							className={buttonClasses}
-							onClick={() =>
-								handleViewChange(
-									<AboutMeForm />
-								)
-							}
+							onClick={() => handleViewChange(<AboutMeForm />)}
 						>
 							About Me Content
 						</button>
-						<button className={buttonClasses}>
+						<button
+							className={buttonClasses}
+							onClick={() => handleViewChange(<ExperienceForm />)}
+						>
 							Experience Content
 						</button>
 						<button className={buttonClasses}>
