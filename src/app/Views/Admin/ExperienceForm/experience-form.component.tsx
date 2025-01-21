@@ -112,7 +112,7 @@ export function ExperienceForm() {
 	}, []);
 
 	return (
-		<div className="container mx-auto mt-12 w-full" id="about-me-form">
+		<div className="container mx-auto mt-12 w-full font-sans" id="about-me-form">
 			<div className="flex relative justify-center items-center w-full mb-8">
 				<h2 className="text-2xl">Experience Content Form</h2>
 				<button
