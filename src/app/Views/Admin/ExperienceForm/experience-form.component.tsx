@@ -13,6 +13,7 @@ import {
 	getAllExperienceDocs,
 	uploadExperienceDoc,
 } from "@/app/Utils/FirestoreDB";
+import { useForm, useFieldArray } from "react-hook-form";
 
 export function ExperienceForm() {
 	const [experienceContent, setExperienceContent] = useState<
@@ -34,6 +35,41 @@ export function ExperienceForm() {
 		},
 	};
 
+	function FieldArray() {
+		const { control, register } = useForm();
+		const { fields, append, remove } = useFieldArray({
+			control,
+			name: "bulletPoints",
+		});
+
+		return (
+			<div>
+				{fields.map((field, index) => (
+					<div key={field.id} className="flex items-center mb-2">
+						<input
+							{...register(`bulletPoints.${index}.value`)}
+							className="border px-2 py-1 flex-grow"
+						/>
+						<button
+							type="button"
+							onClick={() => remove(index)}
+							className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+						>
+							Delete
+						</button>
+					</div>
+				))}
+				<button
+					type="button"
+					onClick={() => append({ value: "" })}
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+				>
+					Add Bullet Point
+				</button>
+			</div>
+		);
+	}
+
 	async function getAllExperienceContent() {
 		setIsLoaded(false);
 		setExperienceContent([]);
@@ -43,13 +79,17 @@ export function ExperienceForm() {
 		setIsLoaded(true);
 	}
 
-	async function uploadExperienceContent(content: WorkExperience | ProjectExperience | EducationExperience) {
+	async function uploadExperienceContent(
+		content: WorkExperience | ProjectExperience | EducationExperience
+	) {
 		await uploadExperienceDoc(content);
 		setModalIsOpen(false);
 		getAllExperienceContent();
 	}
 
-	const handleDelete = async (content: WorkExperience | ProjectExperience | EducationExperience) => {
+	const handleDelete = async (
+		content: WorkExperience | ProjectExperience | EducationExperience
+	) => {
 		console.log("deleting content", content);
 	};
 
@@ -61,14 +101,6 @@ export function ExperienceForm() {
 			<div>
 				<h1>Are you sure you want to submit the following content?</h1>
 				<div className="grid grid-cols-2 gap-4 border px-2 py-1 items-center">
-					<h2 className="font-bold">Section Title</h2>
-					<p>
-						{(e.target as HTMLFormElement)["section-title"].value}
-					</p>
-					<h2 className="font-bold">Section Content</h2>
-					<p className="text-sm sm:text-base bg-gray-800 text-white rounded-lg p-4 pl-6">
-						{contentCode}
-					</p>
 					<h2 className="font-bold">Section Media</h2>
 					{media ? (
 						<Image
@@ -93,14 +125,6 @@ export function ExperienceForm() {
 					<button
 						className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 						onClick={() => {
-							uploadExperienceContent({
-								id: "",
-								title: (e.target as HTMLFormElement)[
-									"section-title"
-								].value,
-								content: contentCode,
-								media: media ? media : "",
-							});
 						}}
 					>
 						Submit
@@ -140,25 +164,102 @@ export function ExperienceForm() {
 				{modalContent}
 			</Modal>
 			<Accordion className="w-full bg-slate-200 px-4 py-2">
-				<AccordionItem header="Add New Section">
+				<AccordionItem header="Add New Work Experience">
+					<div className="mb-4"></div>
 					<form
 						onSubmit={handleSubmit}
 						className="grid grid-cols-2 gap-4 items-center justify-center border bg-slate-100 px-4 py-4"
 					>
-						<label htmlFor="section-title">Section Title</label>
+						<label htmlFor="section-company">Company</label>
 						<input
 							type="text"
-							name="section-title"
-							id="section-title"
+							name="section-company"
+							id="section-company"
 							className="border px-2 py-2"
 						/>
-						<label htmlFor="section-content">Section Bullet Points</label>
-
+						<label htmlFor="section-role">Role</label>
+						<input
+							type="text"
+							name="section-role"
+							id="section-role"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="section-start-date">Start Date</label>
+						<input
+							type="date"
+							name="section-start-date"
+							id="section-start-date"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="section-end-date">End Date</label>
+						<input
+							type="date"
+							name="section-end-date"
+							id="section-end-date"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="section-bullets">
+							Section Bullet Points
+						</label>
+						<FieldArray />
 						<label htmlFor="section-media">Section Media</label>
 						<input
 							type="file"
 							name="section-media"
 							id="section-media"
+							className="border px-2 py-2"
+							onChange={(e) => {
+								setMedia(e.target.files?.[0] || null);
+							}}
+						/>
+						<button
+							type="submit"
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-24 rounded col-span-2 mx-auto"
+						>
+							Submit
+						</button>
+					</form>
+				</AccordionItem>
+				<AccordionItem header="Add New Project Experience">
+					<div className="mb-4"></div>
+					<form
+						onSubmit={handleSubmit}
+						className="grid grid-cols-2 gap-4 items-center justify-center border bg-slate-100 px-4 py-4"
+					>
+						<label htmlFor="project-title">Project Title</label>
+						<input
+							type="text"
+							name="project-title"
+							id="project-title"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="project-description">Project Description</label>
+						<textarea
+							name="project-description"
+							id="project-description"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="project-start-date">Start Date</label>
+						<input
+							type="date"
+							name="project-start-date"
+							id="project-start-date"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="project-end-date">End Date</label>
+						<input
+							type="date"
+							name="project-end-date"
+							id="project-end-date"
+							className="border px-2 py-2"
+						/>
+						<label htmlFor="project-bullets">Project Bullet Points</label>
+						<FieldArray />
+						<label htmlFor="project-media">Project Media</label>
+						<input
+							type="file"
+							name="project-media"
+							id="project-media"
 							className="border px-2 py-2"
 							onChange={(e) => {
 								setMedia(e.target.files?.[0] || null);
@@ -179,7 +280,7 @@ export function ExperienceForm() {
 				<div className="border bg-slate-300">
 					{isLoaded ? (
 						<>
-							{experienceContent ? (
+							{experienceContent.length > 0 ? (
 								experienceContent.map(
 									(
 										content:
