@@ -66,7 +66,7 @@ const Nav: React.FC<NavComponentProps> = ({
 						onMouseLeave={handleMouseOut}
 						onClick={() => handleMouseClick(index)}
 					>
-						<p className="justify-self-start">{button.name}</p>
+						<p className="justify-self-start font-sans">{button.name}</p>
 						{buttonActivated === index ? (
                             <div className="justify-self-end"><HiOutlineChevronUp /></div>
 						) : (
