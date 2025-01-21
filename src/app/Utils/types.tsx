@@ -35,6 +35,8 @@ export interface ProjectExperience {
 	type: "project";
 	title: string;
 	description: string[];
+	githubLink: string;
+	demoLink: string;
 	media: StorageReference | File | string;
 }
 
