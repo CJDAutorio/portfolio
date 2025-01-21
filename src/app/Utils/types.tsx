@@ -17,3 +17,29 @@ export interface aboutMeContent {
 	media: StorageReference | File | string;
 	title: string;
 }
+
+export interface WorkExperience {
+	id: string;
+	company: string;
+	role: string;
+	startDate: string;
+	endDate: string;
+	description: string;
+	media: StorageReference | File | string;
+}
+
+export interface Project {
+	id: string;
+	title: string;
+	description: string;
+	media: StorageReference | File | string;
+}
+
+export interface Education {
+	id: string;
+	school: string;
+	location: string;
+	degree: string;
+	startDate: string;
+	endDate: string;
+}
