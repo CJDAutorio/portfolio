@@ -1,18 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Editor from "@monaco-editor/react";
-import { aboutMeContent } from "@/app/Utils/types";
+import {
+	EducationExperience,
+	ProjectExperience,
+	WorkExperience,
+} from "@/app/Utils/types";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 import Image from "next/image";
 import Modal from "react-modal";
-import { getAllAboutMeDocs, uploadAboutMeDoc } from "@/app/Utils/FirestoreDB";
+import {
+	getAllExperienceDocs,
+	uploadExperienceDoc,
+} from "@/app/Utils/FirestoreDB";
 
 export function ExperienceForm() {
-	const [aboutMeContent, setAboutMeContent] = useState<aboutMeContent[]>([]);
+	const [experienceContent, setExperienceContent] = useState<
+		(WorkExperience | ProjectExperience | EducationExperience)[]
+	>([]);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [modalContent, setModalContent] = useState(<></>);
-	const [contentCode, setContentCode] = useState("<p></p>");
 	const [media, setMedia] = useState<File | null>(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 
@@ -27,24 +34,22 @@ export function ExperienceForm() {
 		},
 	};
 
-	async function getAllAboutMeContent() {
+	async function getAllExperienceContent() {
 		setIsLoaded(false);
-		setAboutMeContent([]);
-		const content = await getAllAboutMeDocs();
-		setAboutMeContent(content);
-		console.log("about me content:", content);
+		setExperienceContent([]);
+		const content = await getAllExperienceDocs();
+		setExperienceContent(content);
+		console.log("experience content:", content);
 		setIsLoaded(true);
 	}
 
-	async function uploadAboutMeContent(content: aboutMeContent) {
-		await uploadAboutMeDoc(content).then(() => {
-			console.log("uploaded content", content);
-		});
+	async function uploadExperienceContent(content: WorkExperience | ProjectExperience | EducationExperience) {
+		await uploadExperienceDoc(content);
 		setModalIsOpen(false);
-		getAllAboutMeContent();
+		getAllExperienceContent();
 	}
 
-	const handleDelete = async (content: aboutMeContent) => {
+	const handleDelete = async (content: WorkExperience | ProjectExperience | EducationExperience) => {
 		console.log("deleting content", content);
 	};
 
@@ -88,7 +93,7 @@ export function ExperienceForm() {
 					<button
 						className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 						onClick={() => {
-							uploadAboutMeContent({
+							uploadExperienceContent({
 								id: "",
 								title: (e.target as HTMLFormElement)[
 									"section-title"
@@ -108,15 +113,18 @@ export function ExperienceForm() {
 	};
 
 	useEffect(() => {
-		getAllAboutMeContent();
+		getAllExperienceContent();
 	}, []);
 
 	return (
-		<div className="container mx-auto mt-12 w-full font-sans" id="about-me-form">
+		<div
+			className="container mx-auto mt-12 w-full font-sans"
+			id="work-experience-form"
+		>
 			<div className="flex relative justify-center items-center w-full mb-8">
 				<h2 className="text-2xl">Experience Content Form</h2>
 				<button
-					onClick={getAllAboutMeContent}
+					onClick={getAllExperienceContent}
 					className="absolute top-0 right-12 bg-slate-300 px-2 py-1 rounded"
 				>
 					Refresh
@@ -144,24 +152,8 @@ export function ExperienceForm() {
 							id="section-title"
 							className="border px-2 py-2"
 						/>
-						<label htmlFor="section-content">Section Content</label>
-						<Editor
-							height="400px"
-							language="html"
-							theme="vs-dark"
-							options={{
-								fontSize: 16,
-								formatOnType: true,
-								autoClosingBrackets: "always",
-								autoClosingQuotes: "always",
-								autoIndent: "full",
-								automaticLayout: true,
-							}}
-							value={contentCode}
-							onChange={(value = "<p></p>") =>
-								setContentCode(value)
-							}
-						/>
+						<label htmlFor="section-content">Section Bullet Points</label>
+
 						<label htmlFor="section-media">Section Media</label>
 						<input
 							type="file"
@@ -187,10 +179,13 @@ export function ExperienceForm() {
 				<div className="border bg-slate-300">
 					{isLoaded ? (
 						<>
-							{aboutMeContent ? (
-								aboutMeContent.map(
+							{experienceContent ? (
+								experienceContent.map(
 									(
-										content: aboutMeContent,
+										content:
+											| WorkExperience
+											| ProjectExperience
+											| EducationExperience,
 										index: number
 									) => (
 										<div
@@ -198,30 +193,16 @@ export function ExperienceForm() {
 											className="flex flex-col items-center justify-center px-4 py-2"
 										>
 											<h3 className="font-bold text-xl">
-												{content.title}
+												{"title" in content
+													? content.title
+													: ""}
+												{"company" in content
+													? content.company
+													: ""}
 											</h3>
 											<p>{content.id}</p>
 											<div className="grid grid-cols-12 w-full gap-4 justify-center">
-												<div className="col-span-8 self-start">
-													<Editor
-														height="400px"
-														language="html"
-														theme="vs-dark"
-														options={{
-															fontSize: 16,
-															formatOnType: true,
-															autoClosingBrackets:
-																"always",
-															autoClosingQuotes:
-																"always",
-															autoIndent: "full",
-															automaticLayout:
-																true,
-															readOnly: true,
-														}}
-														value={content.content}
-													/>
-												</div>
+												<div className="col-span-8 self-start"></div>
 												<div className="col-span-4 self-center justify-self-end">
 													{content.media &&
 													typeof content.media ===
@@ -231,7 +212,17 @@ export function ExperienceForm() {
 													) ? (
 														<Image
 															src={content.media}
-															alt={content.title}
+															alt={`${
+																"title" in
+																content
+																	? content.title
+																	: ""
+															}${
+																"company" in
+																content
+																	? content.company
+																	: ""
+															}`}
 															width={256}
 															height={256}
 															onError={(e) => {
