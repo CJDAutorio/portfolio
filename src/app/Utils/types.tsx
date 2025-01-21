@@ -20,6 +20,7 @@ export interface aboutMeContent {
 
 export interface WorkExperience {
 	id: string;
+	type: "work"
 	company: string;
 	role: string;
 	startDate: string;
@@ -28,15 +29,17 @@ export interface WorkExperience {
 	media: StorageReference | File | string;
 }
 
-export interface Project {
+export interface ProjectExperience {
 	id: string;
+	type: "project";
 	title: string;
 	description: string;
 	media: StorageReference | File | string;
 }
 
-export interface Education {
+export interface EducationExperience {
 	id: string;
+	type: "education";
 	school: string;
 	location: string;
 	degree: string;
