@@ -87,6 +87,15 @@ export async function uploadExperienceDoc(content: WorkExperience | ProjectExper
         content.media = filePath;
     }
 
+    // Check if the content is of type WorkExperience, ProjectExperience, or EducationExperience
+    if ('company' in content) {
+        content.type = 'work';
+    } else if ('school' in content) {
+        content.type = 'education';
+    } else {
+        content.type = 'project';
+    }
+
     await addDoc(docRef, content)
         .then(() => {
             console.log("Document written with ID: ", docRef.id);
