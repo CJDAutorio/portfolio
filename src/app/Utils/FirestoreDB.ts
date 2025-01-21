@@ -82,9 +82,10 @@ export async function getAllAboutMeDocs() {
 export async function uploadExperienceDoc(content: WorkExperience | ProjectExperience | EducationExperience) {
     const docRef = collection(FirestoreDB, "experience-content");
 
-    const filePath = await firebaseStorageUploadBytes(content.media ? content.media as Blob : new Blob());
-
-    content.media = filePath;
+    if (content.media && typeof content.media !== 'string') {
+        const filePath = await firebaseStorageUploadBytes(content.media as Blob);
+        content.media = filePath;
+    }
 
     await addDoc(docRef, content)
         .then(() => {
