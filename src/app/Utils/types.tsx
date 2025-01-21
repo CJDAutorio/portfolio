@@ -45,4 +45,5 @@ export interface EducationExperience {
 	degree: string;
 	startDate: string;
 	endDate: string;
+	media: StorageReference | File | string;
 }
