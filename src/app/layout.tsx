@@ -29,7 +29,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`antialiased ${geist.variable} ${sourceSerif4.variable}`}
+				className={`antialiased ${geist.variable} ${sourceSerif4.variable} font-sans`}
 				id="root"
 			>
 				<SpeedInsights />
