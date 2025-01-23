@@ -151,11 +151,13 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							</h2>
 							<div className="flex-grow h-px bg-gray-300"></div>
 						</div>
+						<div className="flex flex-col md:grid md:grid-cols-2 w-full gap-2 justify-center items-start">
 						{projectExperience.map((exp, index) => (
-							<div key={exp.id}>
+							<div key={exp.id} className="my-2">
 								<ProjectCard project={exp} />
 							</div>
 						))}
+						</div>
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						<div className="flex justify-center items-center w-full gap-2">
