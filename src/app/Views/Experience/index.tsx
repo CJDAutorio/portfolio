@@ -2,15 +2,12 @@
 
 import { useAnimate } from "framer-motion";
 import { useEffect, useState } from "react";
-import {
-	EducationExperience,
-	ProjectExperience,
-	WorkExperience,
-} from "../../Utils/types";
+import { ProjectExperience, WorkExperience } from "../../Utils/types";
 import Image from "next/image";
 import { getAllExperienceDocs } from "@/app/Utils/FirestoreDB";
 import { Timestamp } from "firebase/firestore";
 import { ProjectCard } from "@/app/Components/ProjectCard/project-card.component";
+import { FadeInWhenVisible } from "@/app/Components/FadeInWhenVisible/fade-in-when-visible.component";
 
 interface ExperienceComponentProps {
 	className?: string | undefined;
@@ -113,33 +110,38 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 						</div>
 						{workExperience.map((exp, index) => (
 							<div key={exp.id}>
-								<div className="self-start w-full grid grid-cols-3 gap-y-4 items-baseline">
-									<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2">
-										{exp.media && (
-											<Image src={exp.media as string} alt="alt" width={48} height={48} />
-										)}
-										<h3>
-											{exp.company}
-										</h3>
+								<FadeInWhenVisible>
+									<div className="self-start w-full grid grid-cols-3 gap-y-4 items-baseline">
+										<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2">
+											{exp.media && (
+												<Image
+													src={exp.media as string}
+													alt="alt"
+													width={48}
+													height={48}
+												/>
+											)}
+											<h3>{exp.company}</h3>
+										</div>
+										<p className="font-serif text-lg justify-self-end">
+											{exp.startDate} - {exp.endDate}
+										</p>
+										<p className="font-sans text-lg justify-self-start col-span-2">
+											{exp.role}
+										</p>
+										<p className="font-sans text-lg justify-self-end">
+											{exp.location}
+										</p>
 									</div>
-									<p className="font-serif text-lg justify-self-end">
-										{exp.startDate} - {exp.endDate}
-									</p>
-									<p className="font-sans text-lg justify-self-start col-span-2">
-										{exp.role}
-									</p>
-									<p className="font-sans text-lg justify-self-end">
-										{exp.location}
-									</p>
-								</div>
-								<ul className="font-sans justify-self-start list-disc">
-									{exp.description.map((desc, index) => (
-										<li key={index}>{desc}</li>
-									))}
-								</ul>
-								{index !== workExperience.length - 1 && (
-									<div className="w-full h-px bg-gray-300 my-8"></div>
-								)}
+									<ul className="font-sans justify-self-start list-disc">
+										{exp.description.map((desc, index) => (
+											<li key={index}>{desc}</li>
+										))}
+									</ul>
+									{index !== workExperience.length - 1 && (
+										<div className="w-full h-px bg-gray-300 my-8"></div>
+									)}
+								</FadeInWhenVisible>
 							</div>
 						))}
 					</div>
@@ -152,11 +154,13 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							<div className="flex-grow h-px bg-gray-300"></div>
 						</div>
 						<div className="flex flex-col md:grid md:grid-cols-2 w-full gap-2 justify-center items-start">
-						{projectExperience.map((exp, index) => (
-							<div key={exp.id} className="my-2">
-								<ProjectCard project={exp} />
-							</div>
-						))}
+							{projectExperience.map((exp, index) => (
+								<div key={exp.id} className="my-2">
+									<FadeInWhenVisible>
+										<ProjectCard project={exp} />
+									</FadeInWhenVisible>
+								</div>
+							))}
 						</div>
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
@@ -167,17 +171,17 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							</h2>
 							<div className="flex-grow h-px bg-gray-300"></div>
 						</div>
-						<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
-							<h3 className="font-serif text-2xl justify-self-start col-span-2">
-								University of North Carolina at Charlotte
-							</h3>
-							<p className="font-serif text-lg justify-self-end">
-								Aug 2019 - May 2023
-							</p>
-							<p className="font-sans text-lg justify-self-start col-span-2">
-								Bachelor of Science in Computer Science
-							</p>
-						</div>
+							<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
+								<h3 className="font-serif text-2xl justify-self-start col-span-2">
+									University of North Carolina at Charlotte
+								</h3>
+								<p className="font-serif text-lg justify-self-end">
+									Aug 2019 - May 2023
+								</p>
+								<p className="font-sans text-lg justify-self-start col-span-2">
+									Bachelor of Science in Computer Science
+								</p>
+							</div>
 					</div>
 				</div>
 			) : (
