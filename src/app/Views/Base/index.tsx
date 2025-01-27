@@ -4,6 +4,7 @@ import React from "react";
 import Nav from "../Nav";
 import AboutMe from "../AboutMe";
 import { Button } from "../../Utils/types";
+import Experience from "../Experience";
 
 interface BaseComponentProps {
 	className?: string | undefined;
@@ -19,7 +20,7 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 		},
 		{
 			name: "Experience",
-			component: <AboutMe />,
+			component: <Experience />,
 		},
 		{
 			name: "Hobbies",

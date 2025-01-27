@@ -1,0 +1,9 @@
+.project-button {
+    border: 1px solid #000;
+    transition: all 0.1s;
+}
+
+.project-button:hover {
+    background-color: #252424;
+    color: #fff;
+}
