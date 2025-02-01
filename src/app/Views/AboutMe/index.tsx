@@ -37,7 +37,7 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 		<div
 			className={`${
 				className ? className : ""
-			} relative mx-auto w-full h-[32rem] mb-12 flex justify-start items-start overflow-y-scroll`}
+			} relative mx-auto mb-12 flex justify-start items-start overflow-y-scroll`}
 			ref={scope}
 		>
 			{isLoaded ? (
