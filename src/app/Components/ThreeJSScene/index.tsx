@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import "./style.css";
 import { ComputerModel } from "./Components/computer";
@@ -50,17 +50,30 @@ export function ThreeJSScene() {
 }
 
 function CameraController() {
-	const [targetX, setTargetX] = useState(0);
-	const [targetY, setTargetY] = useState(0);
+    const [targetX, setTargetX] = useState(0.5);
+    const [targetY, setTargetY] = useState(0.5);
 
-	useFrame((state) => {
-		const { x, y } = state.pointer;
-		setTargetX(Math.min(Math.max(x * 0.1, -0.5), 0.5));
-		setTargetY(0.5 + Math.min(Math.max(y * 0.1 + 0.5, 0), 1.5));
+    useEffect(() => {
+		const handleMouseMove = (event: MouseEvent) => {
+			const { clientX, clientY } = event;
+			const { innerWidth, innerHeight } = window;
+			const x = (clientX / innerWidth) * 2 - 1;
+			const y = -(clientY / innerHeight) * 2 + 1;
+			setTargetX(Math.min(Math.max(x * 0.1, -0.5), 0.5));
+			setTargetY(0.5 + Math.min(Math.max(y * 0.1 + 0.5, 0), 1.5));
+		};
 
-		state.camera.position.x += (targetX - state.camera.position.x) * 0.01;
-		state.camera.position.y += (targetY - state.camera.position.y) * 0.01;
-	});
+        window.addEventListener('mousemove', handleMouseMove);
 
-	return null;
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
+    useFrame((state) => {
+        state.camera.position.x += (targetX - state.camera.position.x) * 0.01;
+        state.camera.position.y += (targetY - state.camera.position.y) * 0.01;
+    });
+
+    return null;
 }
