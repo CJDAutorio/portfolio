@@ -8,6 +8,7 @@ import { getAllExperienceDocs } from "@/app/Utils/FirestoreDB";
 import { Timestamp } from "firebase/firestore";
 import { ProjectCard } from "@/app/Components/ProjectCard/project-card.component";
 import { FadeInWhenVisible } from "@/app/Components/FadeInWhenVisible/fade-in-when-visible.component";
+import classNames from "classnames";
 
 interface ExperienceComponentProps {
 	className?: string | undefined;
@@ -88,9 +89,10 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 
 	return (
 		<div
-			className={`${
-				className ? className : ""
-			} relative mx-auto w-full h-[32rem] mb-12 flex justify-start items-start overflow-y-scroll`}
+			className={classNames(
+				className ? className : "",
+				"relative mx-auto flex justify-start items-start"
+			)}
 			ref={scope}
 		>
 			{isLoaded ? (
@@ -154,7 +156,7 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							<div className="flex-grow h-px bg-gray-300"></div>
 						</div>
 						<div className="flex flex-col md:grid md:grid-cols-2 w-full gap-2 justify-center items-start">
-							{projectExperience.map((exp, index) => (
+							{projectExperience.map((exp) => (
 								<div key={exp.id} className="my-2">
 									<FadeInWhenVisible>
 										<ProjectCard project={exp} />
