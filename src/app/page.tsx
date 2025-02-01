@@ -4,9 +4,8 @@ import Base from "./Views/Base";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
-
 	return (
-		<div>
+		<div className="overflow-hidden relative h-screen w-screen">
 			<div className="z-10 absolute top-4 md:top-12 md:right-40 flex flex-col justify-center items-start md:justify-end md:items-end gap-y-2 md:gap-y-4">
 				<h1 className="font-serif font-semibold text-right text-4xl md:text-6xl tracking-wider leading-none">
 					CJ D&apos;Autorio
@@ -23,27 +22,9 @@ export default function Home() {
 					</a>
 				</div>
 			</div>
-			<div className="absolute w-screen h-screen flex justify-start items-end">
+			<div className="z-10 relative">
 				<div
-					className="
-							z-20
-							relative
-							container
-							w-full
-							md:w-2/3
-							py-6
-							mx-8
-							my-12
-							backdrop-blur-lg
-							md:backdrop-blur-md
-							drop-shadow-md
-							bg-slate-100/40
-							flex
-							justify-start
-							items-end
-							hover:backdrop-blur-lg
-							transition-all
-						"
+					className="absolute"
 				>
 					<Base />
 				</div>
