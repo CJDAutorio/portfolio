@@ -5,6 +5,7 @@ import Nav from "../Nav";
 import AboutMe from "../AboutMe";
 import { Button } from "../../Utils/types";
 import Experience from "../Experience";
+import classNames from "classnames";
 
 interface BaseComponentProps {
 	className?: string | undefined;
@@ -44,16 +45,16 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	};
 
 	return (
-		<div className={`${className ? className : ""} relative w-full h-full`}>
+		<div className={classNames(
+			className ? className : "",
+			""
+		)}>
+			<Nav onViewChange={handleViewChange} buttons={buttons} className="" />
 			<div
-				className={`${
-					view ? "opacity-100" : "opacity-0"
-				} transition-all`}
+				className=""
 			>
 				{view}
-				<hr className="" />
 			</div>
-			<Nav onViewChange={handleViewChange} buttons={buttons} />
 		</div>
 	);
 };
