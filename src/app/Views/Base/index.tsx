@@ -12,7 +12,7 @@ interface BaseComponentProps {
 }
 
 const Base: React.FC<BaseComponentProps> = ({ className }) => {
-	const [view, setView] = React.useState<React.ReactNode>(null);
+	const [view, setView] = React.useState<React.ReactNode>(<div className="p-2"></div>);
 
 	const buttons: Button[] = [
 		{
@@ -21,7 +21,7 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 		},
 		{
 			name: "Experience",
-			component: <Experience />,
+			component: <Experience className="" />,
 		},
 		{
 			name: "Hobbies",
@@ -35,7 +35,7 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 
 	const handleViewChange = (viewIndex: number) => {
 		if (viewIndex === -1) {
-			setView(null);
+			setView(<div className="p-2"></div>);
 			console.log("removed view");
 			return;
 		}
@@ -47,7 +47,7 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	return (
 		<div className={classNames(
 			className ? className : "",
-			""
+			" md:gap-x-32 flex container mx-auto p-4"
 		)}>
 			<Nav onViewChange={handleViewChange} buttons={buttons} className="" />
 			<div
