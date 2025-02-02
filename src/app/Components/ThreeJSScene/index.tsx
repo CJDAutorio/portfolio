@@ -8,6 +8,14 @@ import { DeskModel } from "./Components/desk";
 import { GrassInstances } from "./Components/grass";
 import { GroundModel } from "./Components/ground";
 import { BoxInstances } from "./Components/cubes";
+import {
+	Bloom,
+	EffectComposer,
+	ChromaticAberration,
+	BrightnessContrast,
+	Noise,
+} from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 
 export function ThreeJSScene() {
 	return (
@@ -16,10 +24,11 @@ export function ThreeJSScene() {
 				camera={{
 					fov: 10,
 					near: 0.1,
-					far: 1000,
+					far: 500,
 					position: [0, 1, 18],
 					rotation: [0, 0, 0],
 				}}
+				dpr={0.35}
 			>
 				<ambientLight intensity={1} color={"#c4ccda"} />
 				<directionalLight
@@ -35,25 +44,46 @@ export function ThreeJSScene() {
 					shadow-camera-bottom={-10}
 					color={"#ece3c4"}
 				/>
-				<fog attach="fog" args={["rgb(72, 75, 78)", 5, 100]} />
+				<fog attach="fog" args={["rgb(88, 92, 96)", 5, 70]} />
 				<CameraController />
-				<Suspense>
+				<Suspense fallback={null}>
 					<ComputerModel />
 					<DeskModel />
 					<GrassInstances />
 					<GroundModel />
 					<BoxInstances />
 				</Suspense>
+				<EffectComposer>
+					<Bloom
+						opacity={1}
+						luminanceThreshold={0.5}
+						luminanceSmoothing={0.9}
+						color={"#f0f0f0"}
+					/>
+					<ChromaticAberration
+						blendFunction={BlendFunction.NORMAL} // blend mode
+						offset={[0.001, 0.001]} // color offset
+						opacity={0.2}
+					/>
+					<BrightnessContrast
+						contrast={0.1} // contrast: min -1, max: 1
+					/>
+					<Noise
+						premultiply // enables or disables noise premultiplication
+						blendFunction={BlendFunction.SCREEN} // blend mode
+						opacity={0.15} // opacity of the
+					/>
+				</EffectComposer>
 			</Canvas>
 		</div>
 	);
 }
 
 function CameraController() {
-    const [targetX, setTargetX] = useState(0.5);
-    const [targetY, setTargetY] = useState(0.5);
+	const [targetX, setTargetX] = useState(0.5);
+	const [targetY, setTargetY] = useState(0.5);
 
-    useEffect(() => {
+	useEffect(() => {
 		const handleMouseMove = (event: MouseEvent) => {
 			const { clientX, clientY } = event;
 			const { innerWidth, innerHeight } = window;
@@ -63,17 +93,17 @@ function CameraController() {
 			setTargetY(0.5 + Math.min(Math.max(y * 0.1 + 0.5, 0), 1.5));
 		};
 
-        window.addEventListener('mousemove', handleMouseMove);
+		window.addEventListener("mousemove", handleMouseMove);
 
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
+		return () => {
+			window.removeEventListener("mousemove", handleMouseMove);
+		};
+	}, []);
 
-    useFrame((state) => {
-        state.camera.position.x += (targetX - state.camera.position.x) * 0.01;
-        state.camera.position.y += (targetY - state.camera.position.y) * 0.01;
-    });
+	useFrame((state) => {
+		state.camera.position.x += (targetX - state.camera.position.x) * 0.01;
+		state.camera.position.y += (targetY - state.camera.position.y) * 0.01;
+	});
 
-    return null;
+	return null;
 }
