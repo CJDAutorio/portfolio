@@ -44,7 +44,7 @@ const Nav: React.FC<NavComponentProps> = ({
 		<div
 			className={classNames(
 				className ? className : "",
-				`grid grid-cols-1 grid-rows-${buttons.length} gap-y-16`,
+				`flex gap-x-16 w-full`,
 			)}
 		>
 			{buttons.map((button, index) => (
