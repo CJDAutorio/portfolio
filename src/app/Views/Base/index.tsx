@@ -6,13 +6,19 @@ import AboutMe from "../AboutMe";
 import { Button } from "../../Utils/types";
 import Experience from "../Experience";
 import classNames from "classnames";
+import { ReactLenis, useLenis } from 'lenis/react';
+import 'lenis/dist/lenis.css';
+
+import "./style.css";
 
 interface BaseComponentProps {
 	className?: string | undefined;
 }
 
 const Base: React.FC<BaseComponentProps> = ({ className }) => {
-	const [view, setView] = React.useState<React.ReactNode>(<div className="p-2"></div>);
+	const [view, setView] = React.useState<React.ReactNode>(
+		<div></div>
+	);
 
 	const buttons: Button[] = [
 		{
@@ -21,7 +27,7 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 		},
 		{
 			name: "Experience",
-			component: <Experience className="" />,
+			component: <Experience className="bg-slate-50/50 backdrop-blur-md" />,
 		},
 		{
 			name: "Hobbies",
@@ -45,16 +51,18 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	};
 
 	return (
-		<div className={classNames(
-			className ? className : "",
-			" md:gap-x-32 flex container mx-auto p-4"
-		)}>
-			<Nav onViewChange={handleViewChange} buttons={buttons} className="" />
-			<div
-				className=""
-			>
-				{view}
-			</div>
+		<div
+			className={classNames(
+				className ? className : "",
+				"flex flex-col w-full"
+			)}
+		>
+				<div className="my-12 container mx-auto md:mx-12 overflow-x-hidden overflow-y-auto h-[90vh]">{view}</div>
+			<Nav
+				onViewChange={handleViewChange}
+				buttons={buttons}
+				className="fixed container w-full mx-auto"
+			/>
 		</div>
 	);
 };
