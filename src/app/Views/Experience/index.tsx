@@ -104,11 +104,11 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						<div className="relative flex justify-center items-center w-full gap-2">
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Work / Professional
 							</h2>
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 						</div>
 						{workExperience.map((exp, index) => (
 							<FadeInWhenVisible key={exp.id} className="w-full md:w-3/4">
@@ -149,11 +149,11 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						<div className="flex justify-center items-center w-full gap-2">
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Projects
 							</h2>
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 						</div>
 						<div className="flex flex-col md:grid md:grid-cols-2 w-full gap-2 justify-center items-start">
 							{projectExperience.map((exp) => (
@@ -167,11 +167,11 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						<div className="flex justify-center items-center w-full gap-2">
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Education
 							</h2>
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 						</div>
 						<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
 							<h3 className="font-serif text-2xl justify-self-start col-span-2">
