@@ -48,3 +48,5 @@ amplify_outputs*
 amplifyconfiguration*
 .vercel
 .env*.local
+storage.rules
+firestore.rules
