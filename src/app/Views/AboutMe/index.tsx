@@ -78,7 +78,7 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 								check out my resume{" "}
 								<a
 									href="/Assets/Documents/dautorio-christopher-resume.pdf"
-									className=" bg-blue-200 px-2 hover:bg-blue-300 rounded transition-colors"
+									className="bg-blue-200 px-2 hover:bg-blue-300 rounded transition-colors"
 								>
 									here!
 								</a>
