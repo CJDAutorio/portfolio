@@ -23,11 +23,11 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 	const buttons: Button[] = [
 		{
 			name: "About Me",
-			component: <AboutMe />,
+			component: <AboutMe className="bg-slate-50/50 backdrop-blur-md py-4" />,
 		},
 		{
 			name: "Experience",
-			component: <Experience className="bg-slate-50/50 backdrop-blur-md" />,
+			component: <Experience className="bg-slate-50/50 backdrop-blur-md py-4" />,
 		},
 		{
 			name: "Hobbies",
@@ -54,14 +54,14 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 		<div
 			className={classNames(
 				className ? className : "",
-				"flex flex-col w-full"
+				"flex flex-col w-full h-full justify-start items-start overflow-hidden"
 			)}
 		>
-				<div className="my-12 container mx-auto md:mx-12 overflow-x-hidden overflow-y-auto h-[90vh]">{view}</div>
+				<div className="my-12 md:mx-12 container overflow-x-hidden overflow-y-auto h-[86vh]">{view}</div>
 			<Nav
 				onViewChange={handleViewChange}
 				buttons={buttons}
-				className="fixed container w-full mx-auto"
+				className="fixed container w-full mx-auto bottom-0"
 			/>
 		</div>
 	);
