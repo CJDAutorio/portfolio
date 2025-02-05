@@ -48,5 +48,8 @@ amplify_outputs*
 amplifyconfiguration*
 .vercel
 .env*.local
+
+# firebase
+firebase-debug.log
 storage.rules
 firestore.rules
