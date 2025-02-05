@@ -103,7 +103,7 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 						</h1>
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
-						<div className="flex justify-center items-center w-full gap-2">
+						<div className="relative flex justify-center items-center w-full gap-2">
 							<div className="flex-grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Work / Professional
@@ -111,40 +111,40 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							<div className="flex-grow h-px bg-gray-300"></div>
 						</div>
 						{workExperience.map((exp, index) => (
-							<div key={exp.id}>
-								<FadeInWhenVisible>
-									<div className="self-start w-full grid grid-cols-3 gap-y-4 items-baseline">
-										<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2">
-											{exp.media && (
+							<FadeInWhenVisible key={exp.id} className="w-full md:w-3/4">
+								<div className="self-start grid grid-cols-3 gap-y-4 items-baseline">
+									<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2 ">
+										{exp.media && (
+											<div className="self-start drop-shadow-md">
 												<Image
 													src={exp.media as string}
 													alt="alt"
 													width={48}
 													height={48}
 												/>
-											)}
-											<h3>{exp.company}</h3>
-										</div>
-										<p className="font-serif text-lg justify-self-end">
-											{exp.startDate} - {exp.endDate}
-										</p>
-										<p className="font-sans text-lg justify-self-start col-span-2">
-											{exp.role}
-										</p>
-										<p className="font-sans text-lg justify-self-end">
-											{exp.location}
-										</p>
+											</div>
+										)}
+										<h3>{exp.company}</h3>
 									</div>
-									<ul className="font-sans justify-self-start list-disc">
-										{exp.description.map((desc, index) => (
-											<li key={index}>{desc}</li>
-										))}
-									</ul>
-									{index !== workExperience.length - 1 && (
-										<div className="w-full h-px bg-gray-300 my-8"></div>
-									)}
-								</FadeInWhenVisible>
-							</div>
+									<p className="font-serif text-lg justify-self-end">
+										{exp.startDate} - {exp.endDate}
+									</p>
+									<p className="font-sans text-lg justify-self-start col-span-2">
+										{exp.role}
+									</p>
+									<p className="font-sans text-lg justify-self-end">
+										{exp.location}
+									</p>
+								</div>
+								<ul className="font-sans list-disc break-words">
+									{exp.description.map((desc, index) => (
+										<li key={index}>{desc}</li>
+									))}
+								</ul>
+								{index !== workExperience.length - 1 && (
+									<div className="w-full h-px bg-gray-300 my-8"></div>
+								)}
+							</FadeInWhenVisible>
 						))}
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
@@ -173,17 +173,17 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							</h2>
 							<div className="flex-grow h-px bg-gray-300"></div>
 						</div>
-							<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
-								<h3 className="font-serif text-2xl justify-self-start col-span-2">
-									University of North Carolina at Charlotte
-								</h3>
-								<p className="font-serif text-lg justify-self-end">
-									Aug 2019 - May 2023
-								</p>
-								<p className="font-sans text-lg justify-self-start col-span-2">
-									Bachelor of Science in Computer Science
-								</p>
-							</div>
+						<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
+							<h3 className="font-serif text-2xl justify-self-start col-span-2">
+								University of North Carolina at Charlotte
+							</h3>
+							<p className="font-serif text-lg justify-self-end">
+								Aug 2019 - May 2023
+							</p>
+							<p className="font-sans text-lg justify-self-start col-span-2">
+								Bachelor of Science in Computer Science
+							</p>
+						</div>
 					</div>
 				</div>
 			) : (
