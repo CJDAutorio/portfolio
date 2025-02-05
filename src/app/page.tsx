@@ -2,7 +2,6 @@ import React from "react";
 import { ThreeJSScene } from "./Components/ThreeJSScene";
 import Base from "./Views/Base";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { motion } from "motion/react";
 
 export default function Home() {
 	return (
@@ -27,11 +26,7 @@ export default function Home() {
 				<ThreeJSScene />
 			</div>
 			<div className="z-10 relative">
-				<div
-					className=""
-				>
-					<Base />
-				</div>
+				<Base />
 			</div>
 		</div>
 	);
