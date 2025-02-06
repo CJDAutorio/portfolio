@@ -3,11 +3,10 @@
 import React from "react";
 import Nav from "../Nav";
 import AboutMe from "../AboutMe";
-import { Button } from "../../Utils/types";
+import { Button, ProjectExperience, WorkExperience } from "../../Utils/types";
 import Experience from "../Experience";
 import classNames from "classnames";
-import { ReactLenis, useLenis } from 'lenis/react';
-import 'lenis/dist/lenis.css';
+import "lenis/dist/lenis.css";
 
 import "./style.css";
 
@@ -16,18 +15,29 @@ interface BaseComponentProps {
 }
 
 const Base: React.FC<BaseComponentProps> = ({ className }) => {
-	const [view, setView] = React.useState<React.ReactNode>(
-		<div></div>
-	);
+	const [view, setView] = React.useState<React.ReactNode>(<div></div>);
+	const [experienceContent, setExperienceContent] = React.useState<
+		Array<WorkExperience | ProjectExperience>
+	>();
 
 	const buttons: Button[] = [
 		{
 			name: "About Me",
-			component: <AboutMe className="bg-slate-50/50 backdrop-blur-md py-4" />,
+			component: (
+				<AboutMe className="bg-slate-50/60 backdrop-blur-md py-4" />
+			),
 		},
 		{
 			name: "Experience",
-			component: <Experience className="bg-slate-50/50 backdrop-blur-md py-4" />,
+			component: (
+				<Experience
+					className="bg-slate-50/60 backdrop-blur-md py-4"
+					experienceContent={experienceContent}
+					onExperienceContentLoaded={(experienceContent) => {
+						setExperienceContent(experienceContent);
+					}}
+				/>
+			),
 		},
 		{
 			name: "Hobbies",
@@ -57,7 +67,9 @@ const Base: React.FC<BaseComponentProps> = ({ className }) => {
 				"flex flex-col w-full h-full justify-start items-start overflow-hidden"
 			)}
 		>
-				<div className="my-12 md:mx-12 container overflow-x-hidden overflow-y-auto h-[86vh]">{view}</div>
+			<div className="my-12 md:mx-12 container overflow-x-hidden overflow-y-auto h-[86vh] scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-200/10">
+				{view}
+			</div>
 			<Nav
 				onViewChange={handleViewChange}
 				buttons={buttons}
