@@ -12,9 +12,17 @@ import classNames from "classnames";
 
 interface ExperienceComponentProps {
 	className?: string | undefined;
+	experienceContent?: Array<WorkExperience | ProjectExperience>;
+	onExperienceContentLoaded: (
+		experienceContent: Array<WorkExperience | ProjectExperience>
+	) => void;
 }
 
-const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
+const Experience: React.FC<ExperienceComponentProps> = ({
+	className,
+	experienceContent,
+	onExperienceContentLoaded,
+}) => {
 	const [scope, animate] = useAnimate();
 	const [workExperience, setWorkExperience] = useState<WorkExperience[]>([]);
 	const [projectExperience, setProjectExperience] = useState<
@@ -24,9 +32,14 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 
 	async function getExperienceContent() {
 		setIsLoaded(false);
-		setWorkExperience([]);
-		setProjectExperience([]);
-		const content = await getAllExperienceDocs();
+		// setWorkExperience([]);
+		// setProjectExperience([]);
+		let content;
+		if (false) {
+			content = experienceContent;
+		} else {
+			content = await getAllExperienceDocs();
+		}
 		console.log("experience content:", content);
 		const workExp: WorkExperience[] = [];
 		const projExp: ProjectExperience[] = [];
@@ -36,46 +49,74 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 			}
 
 			if (exp.type === "work") {
-				const monthNames = [
-					"Jan",
-					"Feb",
-					"Mar",
-					"Apr",
-					"May",
-					"Jun",
-					"Jul",
-					"Aug",
-					"Sep",
-					"Oct",
-					"Nov",
-					"Dec",
-				];
-				const startDate = new Date(
-					(exp.startDate as unknown as Timestamp).toDate()
-				);
-				exp.startDate =
-					monthNames[startDate.getMonth()] +
-					" " +
-					startDate.getFullYear();
-				if (exp.endDate !== "present") {
-					const endDate = new Date(
-						(exp.endDate as unknown as Timestamp).toDate()
-					);
-					exp.endDate =
-						monthNames[endDate.getMonth()] +
-						" " +
-						endDate.getFullYear();
-				}
+				workExp.push(exp as WorkExperience);
 			}
 
-			if (exp.type === "work") {
-				workExp.push(exp as WorkExperience);
-			} else if (exp.type === "project") {
+			if (exp.type === "project") {
 				projExp.push(exp as ProjectExperience);
 			}
 		});
+
+		// Sort work experience by start date
+		workExp.sort((a, b) => {
+			// const aDate = new Date((a.startDate as unknown as Timestamp).toDate());
+			// const bDate = new Date((b.startDate as unknown as Timestamp).toDate());
+			let aDate, bDate;
+			if (a.startDate === "present") {
+				aDate = new Date(Date.now());
+			} else {
+				aDate = new Date(
+					(a.startDate as unknown as Timestamp).toDate()
+				);
+			}
+			if (b.startDate === "present") {
+				bDate = new Date();
+			} else {
+				bDate = new Date(
+					(b.startDate as unknown as Timestamp).toDate()
+				);
+			}
+			return bDate.getTime() - aDate.getTime();
+		});
+
+		workExp.forEach((exp) => {
+			const monthNames = [
+				"Jan",
+				"Feb",
+				"Mar",
+				"Apr",
+				"May",
+				"Jun",
+				"Jul",
+				"Aug",
+				"Sep",
+				"Oct",
+				"Nov",
+				"Dec",
+			];
+			const startDate = new Date(
+				(exp.startDate as unknown as Timestamp).toDate()
+			);
+			exp.startDate =
+				monthNames[startDate.getMonth()] +
+				" " +
+				startDate.getFullYear();
+			if (exp.endDate !== "present") {
+				const endDate = new Date(
+					(exp.endDate as unknown as Timestamp).toDate()
+				);
+				exp.endDate =
+					monthNames[endDate.getMonth()] +
+					" " +
+					endDate.getFullYear();
+			}
+		});
+
 		setWorkExperience(workExp);
 		setProjectExperience(projExp);
+		onExperienceContentLoaded(
+			content.filter((exp) => exp.type !== "education")
+		);
 		setIsLoaded(true);
 	}
 
@@ -96,8 +137,8 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 			ref={scope}
 		>
 			{isLoaded ? (
-				<div className="w-full flex flex-col justify-center items-center mx-8 pb-4">
-					<div className="self-start sticky top-0 w-full flex justify-start items-center gap-2 bg-slate-200/90 backdrop-blur-lg z-10">
+				<div className="w-full flex flex-col justify-center items-center mx-8 pb-4 gap-y-4">
+					<div className="self-start sticky top-0 w-full flex justify-start items-center gap-2 bg-slate-900/90 text-neutral-50 backdrop-blur-lg z-10">
 						<h1 className="font-serif self-start text-4xl font-medium my-2 mx-4 pt-4">
 							Experience
 						</h1>
@@ -111,7 +152,10 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 							<div className="grow h-px bg-gray-300"></div>
 						</div>
 						{workExperience.map((exp, index) => (
-							<FadeInWhenVisible key={exp.id} className="w-full md:w-3/4">
+							<FadeInWhenVisible
+								key={exp.id}
+								className="w-full md:w-3/4"
+							>
 								<div className="self-start grid grid-cols-3 gap-y-4 items-baseline">
 									<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2 ">
 										{exp.media && (
