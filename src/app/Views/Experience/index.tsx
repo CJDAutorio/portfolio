@@ -8,12 +8,21 @@ import { getAllExperienceDocs } from "@/app/Utils/FirestoreDB";
 import { Timestamp } from "firebase/firestore";
 import { ProjectCard } from "@/app/Components/ProjectCard/project-card.component";
 import { FadeInWhenVisible } from "@/app/Components/FadeInWhenVisible/fade-in-when-visible.component";
+import classNames from "classnames";
 
 interface ExperienceComponentProps {
 	className?: string | undefined;
+	experienceContent?: Array<WorkExperience | ProjectExperience>;
+	onExperienceContentLoaded: (
+		experienceContent: Array<WorkExperience | ProjectExperience>
+	) => void;
 }
 
-const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
+const Experience: React.FC<ExperienceComponentProps> = ({
+	className,
+	experienceContent,
+	onExperienceContentLoaded,
+}) => {
 	const [scope, animate] = useAnimate();
 	const [workExperience, setWorkExperience] = useState<WorkExperience[]>([]);
 	const [projectExperience, setProjectExperience] = useState<
@@ -23,9 +32,14 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 
 	async function getExperienceContent() {
 		setIsLoaded(false);
-		setWorkExperience([]);
-		setProjectExperience([]);
-		const content = await getAllExperienceDocs();
+		// setWorkExperience([]);
+		// setProjectExperience([]);
+		let content;
+		if (false) {
+			content = experienceContent;
+		} else {
+			content = await getAllExperienceDocs();
+		}
 		console.log("experience content:", content);
 		const workExp: WorkExperience[] = [];
 		const projExp: ProjectExperience[] = [];
@@ -35,46 +49,74 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 			}
 
 			if (exp.type === "work") {
-				const monthNames = [
-					"Jan",
-					"Feb",
-					"Mar",
-					"Apr",
-					"May",
-					"Jun",
-					"Jul",
-					"Aug",
-					"Sep",
-					"Oct",
-					"Nov",
-					"Dec",
-				];
-				const startDate = new Date(
-					(exp.startDate as unknown as Timestamp).toDate()
-				);
-				exp.startDate =
-					monthNames[startDate.getMonth()] +
-					" " +
-					startDate.getFullYear();
-				if (exp.endDate !== "present") {
-					const endDate = new Date(
-						(exp.endDate as unknown as Timestamp).toDate()
-					);
-					exp.endDate =
-						monthNames[endDate.getMonth()] +
-						" " +
-						endDate.getFullYear();
-				}
+				workExp.push(exp as WorkExperience);
 			}
 
-			if (exp.type === "work") {
-				workExp.push(exp as WorkExperience);
-			} else if (exp.type === "project") {
+			if (exp.type === "project") {
 				projExp.push(exp as ProjectExperience);
 			}
 		});
+
+		// Sort work experience by start date
+		workExp.sort((a, b) => {
+			// const aDate = new Date((a.startDate as unknown as Timestamp).toDate());
+			// const bDate = new Date((b.startDate as unknown as Timestamp).toDate());
+			let aDate, bDate;
+			if (a.startDate === "present") {
+				aDate = new Date(Date.now());
+			} else {
+				aDate = new Date(
+					(a.startDate as unknown as Timestamp).toDate()
+				);
+			}
+			if (b.startDate === "present") {
+				bDate = new Date();
+			} else {
+				bDate = new Date(
+					(b.startDate as unknown as Timestamp).toDate()
+				);
+			}
+			return bDate.getTime() - aDate.getTime();
+		});
+
+		workExp.forEach((exp) => {
+			const monthNames = [
+				"Jan",
+				"Feb",
+				"Mar",
+				"Apr",
+				"May",
+				"Jun",
+				"Jul",
+				"Aug",
+				"Sep",
+				"Oct",
+				"Nov",
+				"Dec",
+			];
+			const startDate = new Date(
+				(exp.startDate as unknown as Timestamp).toDate()
+			);
+			exp.startDate =
+				monthNames[startDate.getMonth()] +
+				" " +
+				startDate.getFullYear();
+			if (exp.endDate !== "present") {
+				const endDate = new Date(
+					(exp.endDate as unknown as Timestamp).toDate()
+				);
+				exp.endDate =
+					monthNames[endDate.getMonth()] +
+					" " +
+					endDate.getFullYear();
+			}
+		});
+
 		setWorkExperience(workExp);
 		setProjectExperience(projExp);
+		onExperienceContentLoaded(
+			content.filter((exp) => exp.type !== "education")
+		);
 		setIsLoaded(true);
 	}
 
@@ -88,73 +130,77 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 
 	return (
 		<div
-			className={`${
-				className ? className : ""
-			} relative mx-auto w-full h-[32rem] mb-12 flex justify-start items-start overflow-y-scroll`}
+			className={classNames(
+				className ? className : "",
+				"relative mx-auto flex justify-start items-start"
+			)}
 			ref={scope}
 		>
 			{isLoaded ? (
-				<div className="w-full flex flex-col justify-center items-center mx-8">
-					<div className="self-start">
-						<h1 className="font-serif self-start text-4xl font-medium my-2">
+				<div className="w-full flex flex-col justify-center items-center mx-8 pb-4 gap-y-4">
+					<div className="self-start sticky top-0 w-full flex justify-start items-center gap-2 bg-slate-900/90 text-neutral-50 backdrop-blur-lg z-10">
+						<h1 className="font-serif self-start text-4xl font-medium my-2 mx-4 pt-4">
 							Experience
 						</h1>
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
-						<div className="flex justify-center items-center w-full gap-2">
-							<div className="flex-grow h-px bg-gray-300"></div>
+						<div className="relative flex justify-center items-center w-full gap-2">
+							<div className="grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Work / Professional
 							</h2>
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 						</div>
 						{workExperience.map((exp, index) => (
-							<div key={exp.id}>
-								<FadeInWhenVisible>
-									<div className="self-start w-full grid grid-cols-3 gap-y-4 items-baseline">
-										<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2">
-											{exp.media && (
+							<FadeInWhenVisible
+								key={exp.id}
+								className="w-full md:w-3/4"
+							>
+								<div className="self-start grid grid-cols-3 gap-y-4 items-baseline">
+									<div className="font-serif text-2xl justify-self-start col-span-2 flex justify-center items-center gap-2 ">
+										{exp.media && (
+											<div className="self-start drop-shadow-md">
 												<Image
 													src={exp.media as string}
 													alt="alt"
 													width={48}
 													height={48}
 												/>
-											)}
-											<h3>{exp.company}</h3>
-										</div>
-										<p className="font-serif text-lg justify-self-end">
-											{exp.startDate} - {exp.endDate}
-										</p>
-										<p className="font-sans text-lg justify-self-start col-span-2">
-											{exp.role}
-										</p>
-										<p className="font-sans text-lg justify-self-end">
-											{exp.location}
-										</p>
+											</div>
+										)}
+										<h3>{exp.company}</h3>
 									</div>
-									<ul className="font-sans justify-self-start list-disc">
-										{exp.description.map((desc, index) => (
-											<li key={index}>{desc}</li>
-										))}
-									</ul>
-									{index !== workExperience.length - 1 && (
-										<div className="w-full h-px bg-gray-300 my-8"></div>
-									)}
-								</FadeInWhenVisible>
-							</div>
+									<p className="font-serif text-lg justify-self-end">
+										{exp.startDate} - {exp.endDate}
+									</p>
+									<p className="font-sans text-lg justify-self-start col-span-2">
+										{exp.role}
+									</p>
+									<p className="font-sans text-lg justify-self-end">
+										{exp.location}
+									</p>
+								</div>
+								<ul className="font-sans list-disc break-words">
+									{exp.description.map((desc, index) => (
+										<li key={index}>{desc}</li>
+									))}
+								</ul>
+								{index !== workExperience.length - 1 && (
+									<div className="w-full h-px bg-gray-300 my-8"></div>
+								)}
+							</FadeInWhenVisible>
 						))}
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						<div className="flex justify-center items-center w-full gap-2">
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Projects
 							</h2>
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 						</div>
 						<div className="flex flex-col md:grid md:grid-cols-2 w-full gap-2 justify-center items-start">
-							{projectExperience.map((exp, index) => (
+							{projectExperience.map((exp) => (
 								<div key={exp.id} className="my-2">
 									<FadeInWhenVisible>
 										<ProjectCard project={exp} />
@@ -165,23 +211,23 @@ const Experience: React.FC<ExperienceComponentProps> = ({ className }) => {
 					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						<div className="flex justify-center items-center w-full gap-2">
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 							<h2 className="font-serif text-2xl font-medium my-2">
 								Education
 							</h2>
-							<div className="flex-grow h-px bg-gray-300"></div>
+							<div className="grow h-px bg-gray-300"></div>
 						</div>
-							<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
-								<h3 className="font-serif text-2xl justify-self-start col-span-2">
-									University of North Carolina at Charlotte
-								</h3>
-								<p className="font-serif text-lg justify-self-end">
-									Aug 2019 - May 2023
-								</p>
-								<p className="font-sans text-lg justify-self-start col-span-2">
-									Bachelor of Science in Computer Science
-								</p>
-							</div>
+						<div className="self-start w-full grid grid-cols-3 gap-2 items-baseline">
+							<h3 className="font-serif text-2xl justify-self-start col-span-2">
+								University of North Carolina at Charlotte
+							</h3>
+							<p className="font-serif text-lg justify-self-end">
+								Aug 2019 - May 2023
+							</p>
+							<p className="font-sans text-lg justify-self-start col-span-2">
+								Bachelor of Science in Computer Science
+							</p>
+						</div>
 					</div>
 				</div>
 			) : (

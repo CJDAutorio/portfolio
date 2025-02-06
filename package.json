@@ -9,19 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.6.0",
-    "@react-three/drei": "^9.121.1",
+    "@monaco-editor/react": "^4.7.0-rc.0",
+    "@react-three/drei": "^3.11.2",
     "@react-three/fiber": "^9.0.0-rc.4",
-    "@react-three/postprocessing": "^2.16.7",
+    "@react-three/postprocessing": "^3.0.0-rc.2",
     "@szhsin/react-accordion": "^1.4.0",
     "@types/three": "^0.172.0",
     "@vercel/analytics": "^1.4.1",
     "@vercel/edge-config": "^1.4.0",
     "@vercel/speed-insights": "^1.1.0",
+    "classnames": "^2.5.1",
     "dotenv": "^16.4.7",
     "firebase": "^11.2.0",
-    "firebaseui": "^6.1.0",
     "html-react-parser": "^5.2.2",
+    "lenis": "^1.1.20",
     "monaco-editor": "^0.52.2",
     "motion": "^11.18.0",
     "next": "15.1.4",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -48,7 +50,8 @@
     "eslint-config-next": "15.1.4",
     "postcss": "^8",
     "style-loader": "^4.0.0",
-    "tailwindcss": "^3.4.1",
+    "tailwind-scrollbar": "^4.0.0",
+    "tailwindcss": "^4.0.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }

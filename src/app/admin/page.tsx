@@ -12,7 +12,7 @@ export default function Admin() {
 	const [isSignedIn, setIsSignedIn] = React.useState(false);
 
 	const buttonClasses =
-		"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
+		"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm";
 
 	function handleViewChange(component: React.ReactNode) {
 		setView(component);
@@ -38,7 +38,7 @@ export default function Admin() {
 					<div className="flex flex-row justify-start gap-5 items-center">
 						<p>Logged in as {FirebaseAuth.currentUser?.email}</p>
 						<button
-							className="bg-slate-200 px-3 py-1 rounded"
+							className="bg-slate-200 px-3 py-1 rounded-sm"
 							onClick={() => {
 								FirebaseAuth.signOut();
 								setIsSignedIn(false);

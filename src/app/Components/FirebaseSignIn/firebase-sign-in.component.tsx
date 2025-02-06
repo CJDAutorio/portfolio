@@ -48,7 +48,7 @@ export function FirebaseSignIn({ setIsSignedIn }: FirebaseSignInProps) {
 					/>
 					<button
 						type="submit"
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-24 rounded col-span-2 mx-auto"
+						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-24 rounded-sm col-span-2 mx-auto"
 					>
 						Sign In
 					</button>

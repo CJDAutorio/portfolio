@@ -78,7 +78,7 @@ export function AboutMeForm() {
 				</div>
 				<div className="flex justify-center gap-4 mt-2">
 					<button
-						className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+						className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-sm"
 						onClick={() => {
 							setModalIsOpen(false);
 						}}
@@ -86,7 +86,7 @@ export function AboutMeForm() {
 						Cancel
 					</button>
 					<button
-						className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+						className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-sm"
 						onClick={() => {
 							uploadAboutMeContent({
 								id: "",
@@ -117,7 +117,7 @@ export function AboutMeForm() {
 				<h2 className="text-2xl">About Me Content Form</h2>
 				<button
 					onClick={getAllAboutMeContent}
-					className="absolute top-0 right-12 bg-slate-300 px-2 py-1 rounded"
+					className="absolute top-0 right-12 bg-slate-300 px-2 py-1 rounded-sm"
 				>
 					Refresh
 				</button>
@@ -174,7 +174,7 @@ export function AboutMeForm() {
 						/>
 						<button
 							type="submit"
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-24 rounded col-span-2 mx-auto"
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-24 rounded-sm col-span-2 mx-auto"
 						>
 							Submit
 						</button>
@@ -254,7 +254,7 @@ export function AboutMeForm() {
 												onClick={() => {
 													handleDelete(content);
 												}}
-												className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+												className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-sm mt-4"
 											>
 												Delete
 											</button>
