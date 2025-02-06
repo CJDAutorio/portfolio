@@ -52,7 +52,7 @@ const Nav: React.FC<NavComponentProps> = ({
 					key={index}
 					className={classNames(
 						"w-64 px-8 py-1 hover:bg-slate-100/50 border-b border-slate-100/50 hover:drop-shadow-md",
-						"text-lg grid grid-cols-2 grid-rows-1 items-center transition-colors"
+						"text-lg grid grid-cols-2 grid-rows-1 items-center transition-colors cursor-pointer"
 					)}
 					onMouseEnter={handleMouseIn}
 					onMouseLeave={handleMouseOut}
