@@ -42,9 +42,11 @@ const AboutMe: React.FC<AboutMeComponentProps> = ({ className }) => {
 		>
 			{isLoaded ? (
 				<div className="w-full flex flex-col justify-center items-center mx-8">
-					<h1 className="font-serif self-start text-4xl font-medium my-2">
-						About Me
-					</h1>
+					<div className="self-start sticky top-0 w-full flex justify-start items-center gap-2 bg-slate-900/90 text-neutral-50 backdrop-blur-lg z-10">
+						<h1 className="font-serif self-start text-4xl font-medium my-2 mx-4 pt-4">
+							About Me
+						</h1>
+					</div>
 					<div className="w-full h-full flex flex-col justify-center items-center mx-12 gap-2 tracking-normal">
 						{aboutMeContent.map((content) => (
 							<div key={content.id}>
